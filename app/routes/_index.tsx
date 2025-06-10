@@ -1,11 +1,23 @@
-import { redirect } from "@remix-run/react";
+import {
+  Header,
+  Projects,
+  QuickStats,
+  Technology,
+  Gallery,
+  Contacts,
+} from "~/components/client";
 
-export const loader = () => {
-  return redirect("/home");
+const IndexRoute = () => {
+  return (
+    <>
+      <Header />
+      <Projects />
+      <QuickStats />
+      <Technology />
+      <Gallery />
+      <Contacts />
+    </>
+  );
 };
 
-const Index = () => {
-  return null;
-};
-
-export default Index;
+export default IndexRoute;

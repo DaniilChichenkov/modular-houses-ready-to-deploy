@@ -1,5 +1,26 @@
 import TechnologyArticle from "./TechnologyArticle";
 
+const TechnologyArticleSelectionListItem = ({
+  isActive,
+}: {
+  isActive: boolean;
+}) => {
+  return (
+    <li>
+      <button
+        className={`text-gray-700 ${
+          isActive ? "font-bold" : ""
+        } scale-110 origin-left`}
+      >
+        Lorem ipsum
+      </button>
+      {isActive && (
+        <div className="w-full h-px bg-gray-700 bg-opacity-40"></div>
+      )}
+    </li>
+  );
+};
+
 const Technology = () => {
   return (
     <section className="py-10">
@@ -13,27 +34,10 @@ const Technology = () => {
 
               {/* List of technologies */}
               <ul className="mt-5 flex flex-col items-start justify-between gap-3">
-                <li>
-                  <button className="text-gray-700 font-bold scale-110 origin-left">
-                    Lorem ipsum
-                  </button>
-                  <div className="w-full h-px bg-gray-700 bg-opacity-40"></div>
-                </li>
-                <li>
-                  <button className="text-gray-700 transition-transform duration-200 hover:scale-110 origin-left">
-                    Lorem ipsum
-                  </button>
-                </li>
-                <li>
-                  <button className="text-gray-700 transition-transform duration-200 hover:scale-110 origin-left">
-                    Lorem ipsum
-                  </button>
-                </li>
-                <li>
-                  <button className="text-gray-700 transition-transform duration-200 hover:scale-110 origin-left">
-                    Lorem ipsum
-                  </button>
-                </li>
+                <TechnologyArticleSelectionListItem isActive={false} />
+                <TechnologyArticleSelectionListItem isActive={false} />
+                <TechnologyArticleSelectionListItem isActive={false} />
+                <TechnologyArticleSelectionListItem isActive={true} />
               </ul>
             </div>
           </div>

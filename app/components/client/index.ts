@@ -8,6 +8,8 @@ import ProjectsListItem from "./Projects/ProjectsListItem";
 import ProjectsListFilter from "./Projects/ProjectsListFilter";
 import ProjectsListPaggination from "./Projects/ProjectsListPaggination";
 import ProjectsListSearch from "./Projects/ProjectsListSearch";
+import ProjectSlider from "./Projects/ProjectSlider";
+import ProjectBreadcrumbs from "./Projects/ProjectBreadcrumbs";
 import QuickStats from "./QuickStats";
 import Technology from "./Technology/Technology";
 import TechnologyArticle from "./Technology/TechnologyArticle";
@@ -26,10 +28,12 @@ export {
   ProjectsListFilter,
   ProjectsListPaggination,
   ProjectsListSearch,
+  ProjectSlider,
   QuickStats,
   Technology,
   TechnologyArticle,
   Gallery,
   Contacts,
   Footer,
+  ProjectBreadcrumbs,
 };

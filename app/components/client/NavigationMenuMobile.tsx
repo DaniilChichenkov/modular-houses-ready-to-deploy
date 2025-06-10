@@ -15,7 +15,7 @@ const NavigationMenuMobile = ({
       style={{ top: `${marginTop + 0.2}rem` }}
       className={`absolute ${
         isVisible ? "" : "hidden"
-      } left-1/2 transform -translate-x-1/2 w-11/12 overflow-hidden rounded border border-gray-300 bg-white shadow-sm z-0`}
+      } left-1/2 transform -translate-x-1/2 w-11/12 overflow-hidden rounded border border-gray-300 bg-white shadow-sm z-10`}
     >
       <button
         onClick={handleNavigationItemClick}
