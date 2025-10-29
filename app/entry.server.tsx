@@ -12,6 +12,18 @@ import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 
+//Create image storage dir (If not created already)
+import path from "path";
+import fs from "fs";
+const UPLOAD_DIR = path.resolve(process.cwd(), "public");
+if (!fs.existsSync(UPLOAD_DIR)) {
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+}
+
+//For testing
+import { connectToDB } from "./utils/db";
+import User from "./models/User";
+
 const ABORT_DELAY = 5_000;
 
 export default function handleRequest(
@@ -138,3 +150,18 @@ function handleBrowserRequest(
     setTimeout(abort, ABORT_DELAY);
   });
 }
+
+//For testing purposes - creating a first user
+async function createTestUser() {
+  await connectToDB();
+  const isCreated = await User.findOne({ name: "Daniil" });
+
+  if (!isCreated) {
+    await User.create({
+      name: "Daniil",
+      password: "12345",
+      email: "example@email.com",
+    });
+  }
+}
+createTestUser();

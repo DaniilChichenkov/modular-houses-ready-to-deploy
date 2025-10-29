@@ -1,18 +1,36 @@
 import { ChevronRight } from "lucide-react";
-import { Link } from "@remix-run/react";
+import { useNavigate } from "@remix-run/react";
 
 type Props = {
   projectTitle: string;
 };
 
 const ProjectBreadcrumbs = ({ projectTitle }: Props) => {
+  const nav = useNavigate();
+
+  //Handle navigation (With preserving URL state)
+  const handleNavigation = (elementToScrollTo?: string) => {
+    const url = new URL(window.location.href);
+
+    //Add element which page should be scrolled to (If provided)
+    if (elementToScrollTo)
+      url.searchParams.set("scrollToElement", elementToScrollTo);
+
+    const urlSearch = url.searchParams.toString();
+
+    nav(`/?${urlSearch}`);
+  };
+
   return (
     <nav aria-label="Breadcrumb">
       <ol className="flex items-center gap-1 text-sm text-gray-700">
         <li>
-          <Link to="/" className="block transition-colors hover:text-gray-900">
+          <button
+            onClick={() => handleNavigation()}
+            className="block transition-colors hover:text-gray-900"
+          >
             Главная
-          </Link>
+          </button>
         </li>
 
         <li className="rtl:rotate-180">
@@ -20,9 +38,12 @@ const ProjectBreadcrumbs = ({ projectTitle }: Props) => {
         </li>
 
         <li>
-          <Link to="/" className="block transition-colors hover:text-gray-900">
+          <button
+            onClick={() => handleNavigation("projects")}
+            className="block transition-colors hover:text-gray-900"
+          >
             Проекты
-          </Link>
+          </button>
         </li>
 
         <li className="rtl:rotate-180">

@@ -5,6 +5,8 @@ import { AlignJustify, X } from "lucide-react";
 import LanguageSelection from "./LanguageSelection";
 import NavigationMenuMobile from "./NavigationMenuMobile";
 
+import scrollToElementById from "~/utils/scrollToElementById";
+
 const NavigationBar = () => {
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
 
@@ -12,12 +14,21 @@ const NavigationBar = () => {
     setMobileMenuVisible((prev) => !prev);
   };
 
-  const handleMobileMenuNavigationClick = () => {
+  const handleMobileMenuNavigationClick = (id: string) => {
+    //Hide mobile navigation menu
     setMobileMenuVisible(false);
+
+    //Scroll element into view
+    scrollToElementById(id);
   };
 
   //Height of a navbar (Rem)
   const barHeight = 4;
+
+  //Handle navigation button click
+  const handleNavigationClick = (elementId: string) => {
+    scrollToElementById(elementId);
+  };
 
   return (
     <>
@@ -45,26 +56,30 @@ const NavigationBar = () => {
           <div className="flex flex-1 items-center justify-end md:justify-between">
             <nav aria-label="Global" className="hidden md:block">
               <ul className="flex items-center gap-6 text-sm">
-                <li>
-                  <button className="text-gray-500 transition hover:text-gray-500/75">
-                    Проекты
-                  </button>
-                </li>
-                <li>
-                  <button className="text-gray-500 transition hover:text-gray-500/75">
-                    Технология
-                  </button>
-                </li>
-                <li>
-                  <button className="text-gray-500 transition hover:text-gray-500/75">
-                    Галерея
-                  </button>
-                </li>
-                <li>
-                  <button className="text-gray-500 transition hover:text-gray-500/75">
-                    Контакты
-                  </button>
-                </li>
+                <button
+                  onClick={() => handleNavigationClick("projects")}
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                >
+                  Проекты
+                </button>
+                <button
+                  onClick={() => handleNavigationClick("technology")}
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                >
+                  Технология
+                </button>
+                <button
+                  onClick={() => handleNavigationClick("gallery")}
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                >
+                  Галерея
+                </button>
+                <button
+                  onClick={() => handleNavigationClick("contacts")}
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                >
+                  Контакты
+                </button>
               </ul>
             </nav>
 

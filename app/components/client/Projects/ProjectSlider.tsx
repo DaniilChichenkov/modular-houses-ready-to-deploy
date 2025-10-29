@@ -9,8 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 const Slider = lazy(() => import("react-slick"));
 
-//For testing
-import house from "/src/house.jpg";
+import useLightBoxStore from "~/stores/LightBoxStore";
 
 interface ArrowProps {
   onClick?: MouseEventHandler<SVGSVGElement>;
@@ -22,7 +21,7 @@ interface ArrowProps {
 const PreviousSlideArrow: React.FC<ArrowProps> = ({ onClick }) => {
   return (
     <ChevronLeft
-      color="#fff"
+      color="#000"
       size={30}
       strokeWidth={3}
       className="absolute cursor-pointer left-1 top-1/2 -translate-y-1/2 z-10"
@@ -35,7 +34,7 @@ const PreviousSlideArrow: React.FC<ArrowProps> = ({ onClick }) => {
 const NextSlideArrow: React.FC<ArrowProps> = ({ onClick }) => {
   return (
     <ChevronRight
-      color="#fff"
+      color="#000"
       size={30}
       strokeWidth={3}
       className="absolute cursor-pointer right-1 top-1/2 -translate-y-1/2 z-10"
@@ -45,7 +44,7 @@ const NextSlideArrow: React.FC<ArrowProps> = ({ onClick }) => {
 };
 
 //Main Slider
-const ProjectSlider = () => {
+const ProjectSlider = ({ imagePaths }: { imagePaths: string[] }) => {
   //Slider settings
   const sliderSettings: Settings = {
     infinite: true,
@@ -58,22 +57,39 @@ const ProjectSlider = () => {
     autoplay: true,
     autoplaySpeed: 3000,
   };
+
+  const openLightbox = useLightBoxStore((state) => state.openLightbox);
+  const setImages = useLightBoxStore((state) => state.setImages);
+  const setActiveImage = useLightBoxStore((state) => state.setActiveImage);
+
+  console.log("Images paths");
+  console.log(imagePaths);
+  console.log("Images paths end");
+
+  //Set images URL`s to store and open Lightbox
+  const handleImageClick = (imageUrl: string) => {
+    setImages(imagePaths as string[]);
+    setActiveImage(imageUrl);
+    openLightbox();
+  };
+
   return (
     <ClientOnly>
       <Suspense fallback={<div>loading slider...</div>}>
         <Slider {...sliderSettings}>
-          <div>
-            <img src={house} alt="#" />
-          </div>
-          <div>
-            <img src={house} alt="#" />
-          </div>
-          <div>
-            <img src={house} alt="#" />
-          </div>
-          <div>
-            <img src={house} alt="#" />
-          </div>
+          {imagePaths.map((item) => (
+            <button
+              key={item}
+              className="aspect-square w-full max-h-[6rem] overflow-hidden"
+              onClick={() => handleImageClick(item)}
+            >
+              <img
+                className="object-contain w-full h-full"
+                src={item}
+                alt="#"
+              />
+            </button>
+          ))}
         </Slider>
       </Suspense>
     </ClientOnly>

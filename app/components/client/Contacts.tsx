@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 const ContactsSectionButton = ({ innerText }: { innerText: string }) => {
   return (
     <button className="inline-block rounded-sm border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:ring-3 focus:outline-hidden">
@@ -124,29 +126,44 @@ const ContactsSectionTeamMember = ({
   position,
   tel,
   email,
+  languages,
 }: {
   name: string;
   position: string;
   tel: string;
   email: string;
+  languages: string;
 }) => {
   return (
     <div className="md:w-10/12 lg:w-8/12 rounded-md border border-gray-300 p-4 shadow-sm shadow-gray-400 sm:p-6 mt-7">
       <ContactsSectionSubHeader innerText={name} />
-      <ContactsSectionPlainText innerText={position} />
+      <ContactsSectionPlainText
+        innerText={JSON.parse(position).content["rus"]}
+      />
       <ContactsSectionPlainText innerText={tel} />
       <ContactsSectionEmail innerText={email} />
     </div>
   );
 };
 
-const ContactsSection = ({ children }) => {
+const ContactsSection = ({ children }: { children: ReactNode }) => {
   return <div className="py-5">{children}</div>;
 };
 
-const Contacts = () => {
+const Contacts = ({
+  members,
+}: {
+  members: {
+    name: string;
+    tel: string;
+    email: string;
+    position: string;
+    languages: string;
+    _id: string;
+  }[];
+}) => {
   return (
-    <section>
+    <section id="contacts">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-start md:gap-8">
           {/* Overall contacts */}
@@ -177,42 +194,26 @@ const Contacts = () => {
           {/* Team */}
           <ContactsSection>
             <ContactsSectionHeader innerText="Наша команда" />
-            <ContactsSectionTeamMember
+
+            {members &&
+              members.length &&
+              members.map((item) => (
+                <ContactsSectionTeamMember
+                  key={item._id}
+                  name={item.name}
+                  position={item.position}
+                  tel={item.tel}
+                  email={item.email}
+                  languages={item.languages}
+                />
+              ))}
+
+            {/* <ContactsSectionTeamMember
               name="Daniil"
               tel="Tel: 55555"
               position="Manager"
               email="example@email.com"
-            />
-            <ContactsSectionTeamMember
-              name="Daniil"
-              tel="Tel: 55555"
-              position="Manager"
-              email="example@email.com"
-            />
-            <ContactsSectionTeamMember
-              name="Daniil"
-              tel="Tel: 55555"
-              position="Manager"
-              email="example@email.com"
-            />
-            <ContactsSectionTeamMember
-              name="Daniil"
-              tel="Tel: 55555"
-              position="Manager"
-              email="example@email.com"
-            />
-            <ContactsSectionTeamMember
-              name="Daniil"
-              tel="Tel: 55555"
-              position="Manager"
-              email="example@email.com"
-            />
-            <ContactsSectionTeamMember
-              name="Daniil"
-              tel="Tel: 55555"
-              position="Manager"
-              email="example@email.com"
-            />
+            /> */}
           </ContactsSection>
 
           {/* Feedback */}

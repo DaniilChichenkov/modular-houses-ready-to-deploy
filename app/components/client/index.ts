@@ -13,9 +13,11 @@ import ProjectBreadcrumbs from "./Projects/ProjectBreadcrumbs";
 import QuickStats from "./QuickStats";
 import Technology from "./Technology/Technology";
 import TechnologyArticle from "./Technology/TechnologyArticle";
+import LightBox from "./LightBox";
 import Gallery from "./Gallery";
 import Contacts from "./Contacts";
 import Footer from "./Footer";
+import ScrollToElement from "./scrollToElement";
 
 export {
   NavigationBar,
@@ -32,8 +34,10 @@ export {
   QuickStats,
   Technology,
   TechnologyArticle,
+  LightBox,
   Gallery,
   Contacts,
   Footer,
   ProjectBreadcrumbs,
+  ScrollToElement,
 };

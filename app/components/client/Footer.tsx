@@ -1,6 +1,13 @@
+import scrollToElementById from "~/utils/scrollToElementById";
+
 const Footer = () => {
+  //Handle navigation button click
+  const handleNavigationClick = (elementId: string) => {
+    scrollToElementById(elementId);
+  };
+
   return (
-    <footer className="bg-gray-100">
+    <footer className="bg-gray-100 mt-auto">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex justify-center text-teal-600">
           <svg
@@ -58,45 +65,37 @@ const Footer = () => {
         </p>
 
         <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
-          <li>
-            <a
-              className="text-gray-700 transition hover:text-gray-700/75"
-              href="#"
-            >
-              {" "}
-              Проекты{" "}
-            </a>
-          </li>
+          <button
+            onClick={() => handleNavigationClick("projects")}
+            className="text-gray-700 transition hover:text-gray-700/75"
+          >
+            {" "}
+            Проекты{" "}
+          </button>
 
-          <li>
-            <a
-              className="text-gray-700 transition hover:text-gray-700/75"
-              href="#"
-            >
-              {" "}
-              Технология{" "}
-            </a>
-          </li>
+          <button
+            onClick={() => handleNavigationClick("technology")}
+            className="text-gray-700 transition hover:text-gray-700/75"
+          >
+            {" "}
+            Технология{" "}
+          </button>
 
-          <li>
-            <a
-              className="text-gray-700 transition hover:text-gray-700/75"
-              href="#"
-            >
-              {" "}
-              Галерея{" "}
-            </a>
-          </li>
+          <button
+            onClick={() => handleNavigationClick("gallery")}
+            className="text-gray-700 transition hover:text-gray-700/75"
+          >
+            {" "}
+            Галерея{" "}
+          </button>
 
-          <li>
-            <a
-              className="text-gray-700 transition hover:text-gray-700/75"
-              href="#"
-            >
-              {" "}
-              Контакты{" "}
-            </a>
-          </li>
+          <button
+            onClick={() => handleNavigationClick("contacts")}
+            className="text-gray-700 transition hover:text-gray-700/75"
+          >
+            {" "}
+            Контакты{" "}
+          </button>
         </ul>
 
         <ul className="mt-12 flex justify-center gap-6 md:gap-8">

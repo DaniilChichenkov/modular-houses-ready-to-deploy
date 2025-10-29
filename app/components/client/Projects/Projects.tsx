@@ -3,9 +3,24 @@ import ProjectsListFilter from "./ProjectsListFilter";
 import ProjectsListPaggination from "./ProjectsListPaggination";
 import ProjectsListSearch from "./ProjectsListSearch";
 
-const Projects = () => {
+const Projects = ({
+  projects,
+}: {
+  projects: {
+    _id: string;
+    title: string;
+    quickDesc: string;
+    fullDesc: string;
+    isDiscount: boolean;
+    price: number;
+    newPrice: number;
+    isPopular: boolean;
+    imagesFolder: string;
+    featuresList: string;
+  }[];
+}) => {
   return (
-    <section className="py-10">
+    <section id="projects" className="py-10">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start lg:gap-8">
           <div className="lg:col-span-1">
@@ -25,7 +40,7 @@ const Projects = () => {
           {/* List of projects */}
           <div className="lg:col-span-3">
             {/* Search and filter */}
-            <div className="mb-5 md:mt-5 lg:mt-0 lg:flex-col-reverse lg:flex">
+            <div className="mb-5 md:mt-5 lg:mt-0 lg:flex-col lg:flex">
               {/* Filter for the list */}
               <ProjectsListFilter />
 
@@ -34,9 +49,9 @@ const Projects = () => {
             </div>
 
             {/* List */}
-            <ProjectsList />
+            <ProjectsList projects={projects} />
 
-            {/* Paggination */}
+            {/* Paggination (Load more button) */}
             <div className="w-full flex justify-center items-center mt-5">
               <ProjectsListPaggination />
             </div>
