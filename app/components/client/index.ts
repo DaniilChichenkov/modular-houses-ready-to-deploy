@@ -18,6 +18,7 @@ import Gallery from "./Gallery";
 import Contacts from "./Contacts";
 import Footer from "./Footer";
 import ScrollToElement from "./scrollToElement";
+import ProjectDetailedSearchModal from "./Projects/ProjectDetailedSearchModal";
 
 export {
   NavigationBar,
@@ -40,4 +41,5 @@ export {
   Footer,
   ProjectBreadcrumbs,
   ScrollToElement,
+  ProjectDetailedSearchModal,
 };

@@ -18,10 +18,12 @@ import {
   Contacts,
   ScrollToElement,
   LightBox,
+  ProjectDetailedSearchModal,
 } from "~/components/client";
 
 import useClientProjectsStore from "~/stores/ClientProjectsStore";
 import useTechnologyActiveLinkStore from "~/stores/TechnologyActiveLinkStore";
+import useProjectDetailedSearchModalStore from "~/stores/ProjectDetailedSearchModalStore";
 
 import HomeLayout from "~/layouts/HomeLayout";
 import { connectToDB } from "~/utils/db";
@@ -35,9 +37,6 @@ export const loader: LoaderFunction = async ({
 }: LoaderFunctionArgs) => {
   //Check for search query params
   const url = new URL(request.url);
-
-  //Referer
-  const referer = request.headers?.get("referer");
 
   //Language
   const lang = url.searchParams.get("lang");
@@ -331,6 +330,10 @@ const IndexRoute = () => {
     (state) => state.setActiveLink
   );
 
+  //Project detailed search modal window (For mobile for now ???)
+  const isProjectDetailedSearchModalWindowOpen =
+    useProjectDetailedSearchModalStore((state) => state.open);
+
   //Function to request for projects from next page
   const getNextPageProjects = useCallback(() => {
     //Get search params
@@ -423,6 +426,7 @@ const IndexRoute = () => {
       <Contacts members={teamMembers} />
       <ScrollToElement />
       <LightBox />
+      {isProjectDetailedSearchModalWindowOpen && <ProjectDetailedSearchModal />}
     </HomeLayout>
   );
 };

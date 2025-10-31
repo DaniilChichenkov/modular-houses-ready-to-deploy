@@ -25,7 +25,7 @@ const ProjectsList = ({
     projectsFromStore !== undefined ? projectsFromStore : projects;
 
   return (
-    <div className="w-full grid grid-cols-1 gap-y-8 relative z-0 md:grid-cols-2 md:grid-rows-2 md:gap-x-5 lg:grid-cols-3">
+    <div className="w-full grid grid-cols-1 sm:grid-cols-2 sm:gap-x-4 gap-y-8 relative z-0 md:grid-rows-2 md:gap-x-5 lg:grid-cols-3">
       {projectsToRender.map((item) => (
         <ProjectsListItem
           key={item.title}

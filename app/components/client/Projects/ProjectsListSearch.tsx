@@ -68,9 +68,9 @@ const ProjectsListSearch = () => {
   }, [fetcher.data]);
 
   return (
-    <div className="mb-10 mt:mb-0 md:w-5/12">
+    <div className="mb-5 mt:mb-0 md:w-5/12 w-full sm:w-6/12">
       <label htmlFor="Search">
-        <span className="text-sm font-medium text-gray-700">
+        <span className="text-sm font-bold text-gray-900">
           {" "}
           Поиск по названию{" "}
         </span>

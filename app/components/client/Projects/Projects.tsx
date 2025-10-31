@@ -1,7 +1,12 @@
+import { SlidersHorizontal } from "lucide-react";
+
 import ProjectsList from "./ProjectsList";
 import ProjectsListFilter from "./ProjectsListFilter";
 import ProjectsListPaggination from "./ProjectsListPaggination";
 import ProjectsListSearch from "./ProjectsListSearch";
+import ProjectDetailedSearchModal from "./ProjectDetailedSearchModal";
+
+import useProjectDetailedSearchModalStore from "~/stores/ProjectDetailedSearchModalStore";
 
 const Projects = ({
   projects,
@@ -19,6 +24,14 @@ const Projects = ({
     featuresList: string;
   }[];
 }) => {
+  const openProjectDetailedSearchModal = useProjectDetailedSearchModalStore(
+    (state) => state.openModal
+  );
+
+  const handleOpenProjectDetailedSearchModalButtonClick = () => {
+    openProjectDetailedSearchModal();
+  };
+
   return (
     <section id="projects" className="py-10">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
@@ -40,12 +53,25 @@ const Projects = ({
           {/* List of projects */}
           <div className="lg:col-span-3">
             {/* Search and filter */}
-            <div className="mb-5 md:mt-5 lg:mt-0 lg:flex-col lg:flex">
+            <div className="mb-5 md:mt-5 lg:mt-0 flex flex-col lg:flex items-center sm:items-start">
               {/* Filter for the list */}
-              <ProjectsListFilter />
+              {/* <ProjectsListFilter /> */}
 
               {/* Search */}
               <ProjectsListSearch />
+
+              {/* Button to open modal with detailed search */}
+              <button
+                onClick={handleOpenProjectDetailedSearchModalButtonClick}
+                className="inline-flex items-center gap-5 rounded-sm border border-indigo-600 bg-indigo-600 px-8 py-3 text-white hover:bg-transparent hover:text-indigo-600 focus:ring-3 focus:outline-hidden"
+              >
+                <span className="text-sm font-medium">
+                  {" "}
+                  Открыть детальный поиск{" "}
+                </span>
+
+                <SlidersHorizontal />
+              </button>
             </div>
 
             {/* List */}
