@@ -94,7 +94,7 @@ const Gallery = ({
           Галерея
         </h2>
 
-        <p className="mt-4 text-gray-700 text-center">
+        <p className="mt-4 text-gray-700 text-center md:w-8/12 mx-auto lg:w-6/12 xl:w-4/12">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
           doloremque saepe architecto maiores repudiandae amet perferendis
           repellendus, reprehenderit voluptas sequi.

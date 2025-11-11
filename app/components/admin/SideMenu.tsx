@@ -158,7 +158,7 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
 
       {/* Content */}
       <div
-        className={`z-50 w-6/12 md:w-4/12 lg:w-2/12 flex h-dvh flex-col justify-between border-e border-gray-100 bg-white fixed lg:sticky inset-0 transition-transform duration-200 ${
+        className={`z-50 w-10/12 md:w-4/12 lg:w-2/12 flex h-dvh flex-col justify-between border-e border-gray-100 bg-white fixed lg:sticky inset-0 transition-transform duration-200 ${
           sideMenuState ? "translate-x-0" : "-translate-x-full"
         } lg:-translate-x-0 lg:relative`}
       >
@@ -434,14 +434,14 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
             </li>
 
             {/* Feedback */}
-            <li>
+            {/* <li>
               <a
                 href="#"
                 className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
               >
                 {translations.feedback[lang!]}
               </a>
-            </li>
+            </li> */}
 
             {/* Language selection */}
             <li className="pt-10">

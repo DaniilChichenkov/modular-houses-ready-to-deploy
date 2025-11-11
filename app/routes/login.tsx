@@ -18,7 +18,6 @@ export const action: ActionFunction = async ({
 
   //If not all credentials are provided
   if (!username || !userpassword) {
-    console.log("a");
     return json({
       errorMsg: "Not all credentials provided",
       fields: {

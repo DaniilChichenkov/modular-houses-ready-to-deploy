@@ -46,7 +46,7 @@ const ProjectDetailedSearchModal = () => {
       ></button>
 
       {/* Content */}
-      <div className="w-[95dvw] max-w-md rounded-lg bg-white p-6 shadow-lg z-20 overflow-scroll">
+      <div className="w-[95dvw] max-h-[90dvh] max-w-md rounded-lg bg-white p-6 shadow-lg z-20 overflow-scroll">
         <div className="flex items-start justify-between">
           <h2
             id="modalTitle"

@@ -122,7 +122,7 @@ const AdminGalleryRoute = () => {
             loaderData.map((item) => (
               <div
                 key={item._id}
-                className="group relative block border border-gray-100 sm:w-8/12"
+                className="group relative block border border-gray-100 sm:w-8/12 w-full"
               >
                 <div className="relative h-full bg-white p-6 flex flex-col items-center justify-between">
                   <h3 className="mt-1.5 text-lg font-medium text-gray-900">

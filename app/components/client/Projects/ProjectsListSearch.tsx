@@ -68,9 +68,9 @@ const ProjectsListSearch = () => {
   }, [fetcher.data]);
 
   return (
-    <div className="mb-5 mt:mb-0 md:w-5/12 w-full sm:w-6/12">
+    <div className="mb-5 mt:mb-0 w-full">
       <label htmlFor="Search">
-        <span className="text-sm font-bold text-gray-900">
+        <span className="text-sm md:text-lg font-bold text-gray-900">
           {" "}
           Поиск по названию{" "}
         </span>
@@ -80,7 +80,7 @@ const ProjectsListSearch = () => {
             type="text"
             id="Search"
             onInput={handleSearchInput}
-            className="mt-0.5 w-full rounded border-gray-300 pe-10 py-2 shadow-sm sm:text-sm shadow-gray-600 pl-2"
+            className="mt-0.5 w-full rounded border-gray-300 pe-10 py-2 md:py-4 shadow-sm sm:text-sm md:text-lg shadow-gray-600 pl-2"
           />
 
           <span className="absolute inset-y-0 right-2 grid w-8 place-content-center">

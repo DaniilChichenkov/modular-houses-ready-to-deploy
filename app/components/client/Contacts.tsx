@@ -134,8 +134,13 @@ const ContactsSectionTeamMember = ({
   email: string;
   languages: string;
 }) => {
+  //Get languages familiar to team member
+  const spokenLanguages = Object.entries(JSON.parse(languages))
+    .filter((item) => item[1] === true)
+    .map((item) => item[0]);
+
   return (
-    <div className="md:w-10/12 lg:w-8/12 rounded-md border border-gray-300 p-4 shadow-sm shadow-gray-400 sm:p-6 mt-7">
+    <div className="w-full rounded-md border border-gray-300 p-4 shadow-sm shadow-gray-400 sm:p-6 mt-7">
       <ContactsSectionSubHeader innerText={name} />
       <ContactsSectionPlainText
         innerText={JSON.parse(position).content["rus"]}
@@ -191,33 +196,8 @@ const Contacts = ({
             <ContactsSectionMapFrame />
           </ContactsSection>
 
-          {/* Team */}
-          <ContactsSection>
-            <ContactsSectionHeader innerText="Наша команда" />
-
-            {members &&
-              members.length &&
-              members.map((item) => (
-                <ContactsSectionTeamMember
-                  key={item._id}
-                  name={item.name}
-                  position={item.position}
-                  tel={item.tel}
-                  email={item.email}
-                  languages={item.languages}
-                />
-              ))}
-
-            {/* <ContactsSectionTeamMember
-              name="Daniil"
-              tel="Tel: 55555"
-              position="Manager"
-              email="example@email.com"
-            /> */}
-          </ContactsSection>
-
           {/* Feedback */}
-          <ContactsSection>
+          {/* <ContactsSection>
             <ContactsSectionHeader innerText="Обратная связь" />
             <ContactsSectionForm>
               <ContactsSectionFormRegularInput
@@ -230,8 +210,27 @@ const Contacts = ({
               />
               <ContactsSectionFormTextArea inputTitle="Ваше сообщение нам" />
             </ContactsSectionForm>
-          </ContactsSection>
+          </ContactsSection> */}
         </div>
+
+        <ContactsSection>
+          <ContactsSectionHeader innerText="Our team" />
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 md:gap-x-10 justify-items-center">
+            {/* Team */}
+            {members &&
+              members.length &&
+              members.map((item) => (
+                <ContactsSectionTeamMember
+                  key={item._id}
+                  name={item.name}
+                  position={item.position}
+                  tel={item.tel}
+                  email={item.email}
+                  languages={item.languages}
+                />
+              ))}
+          </div>
+        </ContactsSection>
       </div>
     </section>
   );
