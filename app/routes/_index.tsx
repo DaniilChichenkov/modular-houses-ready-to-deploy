@@ -30,6 +30,7 @@ import { connectToDB } from "~/utils/db";
 import technologyModel from "~/models/Technology";
 import galleryModel from "~/models/Gallery";
 import memberModel from "~/models/Member";
+import businessInfoModel from "~/models/BusinessInfo";
 import mongoose from "mongoose";
 
 export const loader: LoaderFunction = async ({
@@ -247,6 +248,20 @@ export const loader: LoaderFunction = async ({
       teamMembers = error;
     }
 
+    //Get business info data
+    let businessData;
+    try {
+      await connectToDB();
+      const data = await businessInfoModel
+        .findOne({ id: "businessInfoData" }, { _id: 0, __v: 0, id: 0 })
+        .lean();
+      if (data) {
+        businessData = data;
+      }
+    } catch (error) {
+      businessData = error;
+    }
+
     //Return data to client
     return json({
       projects: projectsParsed.projects,
@@ -256,6 +271,7 @@ export const loader: LoaderFunction = async ({
       galleriesTitles,
       galleryFiles,
       teamMembers,
+      businessContactInfo: businessData,
     });
   } catch (error) {
     return json({ success: false, msg: "Error during request" });
@@ -272,6 +288,7 @@ const IndexRoute = () => {
     galleryFiles,
     galleriesTitles,
     teamMembers,
+    businessContactInfo,
   } = useLoaderData<{
     //Projects data
     projects: {
@@ -309,6 +326,18 @@ const IndexRoute = () => {
       languages: string;
       _id: string;
     }[];
+    businessContactInfo: {
+      businessTitle: string;
+      emailsArr: { value: string; id: string }[];
+      phoneNumbersArr: { value: string; id: string }[];
+      physicalAddressArr: { value: string; id: string }[];
+      addressToDisplayInFrame: {
+        country: string;
+        city: string;
+        street: string;
+        houseNumber: string;
+      };
+    };
   }>();
 
   //Fetcher
@@ -417,13 +446,16 @@ const IndexRoute = () => {
     <HomeLayout>
       <Header />
       <Projects projects={projects} />
-      <QuickStats />
+      {/* <QuickStats /> */}
       <Technology
         techArticlesTitles={techArticlesTitles}
         techArticleContent={techArticle}
       />
       <Gallery titles={galleriesTitles} currentGalleryFiles={galleryFiles} />
-      <Contacts members={teamMembers} />
+      <Contacts
+        members={teamMembers}
+        businessContactInfo={businessContactInfo}
+      />
       <ScrollToElement />
       <LightBox />
       {isProjectDetailedSearchModalWindowOpen && <ProjectDetailedSearchModal />}

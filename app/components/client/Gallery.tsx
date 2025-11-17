@@ -1,6 +1,15 @@
-import { useSearchParams, useNavigate } from "@remix-run/react";
+import { useSearchParams, useNavigate, useLocation } from "@remix-run/react";
 
 import useLightBoxStore from "~/stores/LightBoxStore";
+
+const translations = {
+  gallery: {
+    rus: "Галерея",
+    est: "Galerii",
+    en: "Gallery",
+    nor: "Galleri",
+  },
+};
 
 const GallerySectionSelection = ({
   galleryId,
@@ -11,6 +20,7 @@ const GallerySectionSelection = ({
 }) => {
   const nav = useNavigate();
   const [searchParams] = useSearchParams();
+  const location = useLocation();
 
   //Parse title from JSON format
   const parsedTitle = JSON.parse(title);
@@ -24,6 +34,17 @@ const GallerySectionSelection = ({
     });
   };
 
+  //Get lang
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   const isLinkActive = searchParams.get("galleryPage") === galleryId;
 
   return (
@@ -34,7 +55,7 @@ const GallerySectionSelection = ({
           isLinkActive ? "md:-translate-y-1 lg:-translate-y-2" : ""
         }`}
       >
-        {parsedTitle.content["eng"]}
+        {parsedTitle.content[currentLang === "en" ? "eng" : currentLang]}
       </button>
 
       {isLinkActive && (
@@ -83,6 +104,18 @@ const Gallery = ({
     openLightbox();
   };
 
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <section
       id="gallery"
@@ -91,14 +124,14 @@ const Gallery = ({
       {/* Header section */}
       <div>
         <h2 className="text-2xl font-semibold text-gray-900 sm:text-3xl text-center">
-          Галерея
+          {translations["gallery"][currentLang]}
         </h2>
 
-        <p className="mt-4 text-gray-700 text-center md:w-8/12 mx-auto lg:w-6/12 xl:w-4/12">
+        {/* <p className="mt-4 text-gray-700 text-center md:w-8/12 mx-auto lg:w-6/12 xl:w-4/12">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
           doloremque saepe architecto maiores repudiandae amet perferendis
           repellendus, reprehenderit voluptas sequi.
-        </p>
+        </p> */}
       </div>
 
       {/* Section selection */}

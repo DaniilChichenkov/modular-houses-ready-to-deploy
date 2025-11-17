@@ -13,6 +13,10 @@ type Props = {
   sideMenuState: boolean;
 };
 
+import logo from "src/logo.png";
+
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+
 const translations = {
   projects: {
     general: {
@@ -106,6 +110,12 @@ const translations = {
     est: "Keel",
     nor: "Språk",
   },
+  businessContactDetails: {
+    rus: "Контактные данные компании",
+    est: "Ettevõtte kontaktandmed",
+    eng: "Business contact details",
+    nor: "Bedriftens kontaktinformasjon",
+  },
   logout: {
     eng: "Log Out",
     rus: "Выйти",
@@ -158,16 +168,16 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
 
       {/* Content */}
       <div
-        className={`z-50 w-10/12 md:w-4/12 lg:w-2/12 flex h-dvh flex-col justify-between border-e border-gray-100 bg-white fixed lg:sticky inset-0 transition-transform duration-200 ${
+        className={`z-50 w-10/12 md:w-4/12 lg:w-2/12 flex h-dvh flex-col justify-between border-e overflow-scroll border-gray-100 bg-[rgb(255,255,246)] fixed lg:sticky inset-0 transition-transform duration-200 ${
           sideMenuState ? "translate-x-0" : "-translate-x-full"
         } lg:-translate-x-0 lg:relative`}
       >
         <div className="px-4 py-6">
-          <span className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-            Logo
-          </span>
+          <div className="w-20">
+            <img className="w-full aspect-square" src={logo} alt="Logo" />
+          </div>
 
-          <ul className="mt-6 space-y-1">
+          <ul className="mt-6 space-y-1 z-0">
             {/* Projects */}
             <li>
               <details
@@ -443,6 +453,22 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
               </a>
             </li> */}
 
+            {/* Business contact details */}
+            <li>
+              <NavLink
+                onClick={closeSideMenu}
+                to={`/admin/${lang}/business-info`}
+                end
+                className={({ isActive }) =>
+                  `block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+                    isActive && "bg-gray-100"
+                  }`
+                }
+              >
+                {translations["businessContactDetails"][lang!]}
+              </NavLink>
+            </li>
+
             {/* Language selection */}
             <li className="pt-10">
               <details className="group [&_summary::-webkit-details-marker]:hidden">
@@ -472,31 +498,31 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
 
                 <ul className="mt-2 space-y-1 px-4">
                   <button
-                    className="w-full text-left cursor-pointer block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                    className="w-full flex justify-start items-center gap-x-2  text-left cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     onClick={() => handleGeneralLanguageChange("est")}
                   >
-                    est
+                    est <span className="fi fi-ee"></span>
                   </button>
 
                   <button
-                    className="w-full text-left cursor-pointer block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                    className="w-full flex justify-start items-center gap-x-2 text-left cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     onClick={() => handleGeneralLanguageChange("rus")}
                   >
-                    rus
+                    rus <span className="fi fi-ru"></span>
                   </button>
 
                   <button
-                    className="w-full text-left cursor-pointer block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                    className="w-full  flex justify-start items-center gap-x-2 text-left cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     onClick={() => handleGeneralLanguageChange("eng")}
                   >
-                    eng
+                    eng <span className="fi fi-gb-eng"></span>
                   </button>
 
                   <button
-                    className="w-full text-left cursor-pointer block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                    className="w-full flex justify-start items-center gap-x-2 text-left cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                     onClick={() => handleGeneralLanguageChange("nor")}
                   >
-                    nor
+                    nor <span className="fi fi-no"></span>
                   </button>
                 </ul>
               </details>
@@ -505,7 +531,7 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
         </div>
 
         {/* Log out btn */}
-        <div className="sticky inset-x-0 bottom-0 border-t border-gray-100 mb-10 pt-10 flex justify-center">
+        <div className="sticky z-10 bg-white inset-x-0 bottom-0 border-t border-gray-100 mb-10 pt-10 flex justify-center">
           <button
             onClick={handleLogout}
             className="block bg-red-600 text-white rounded-lg px-4 py-2 text-sm font-medium hover:bg-red-800 w-10/12"

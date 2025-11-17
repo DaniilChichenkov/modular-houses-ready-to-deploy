@@ -16,6 +16,7 @@
     "@remix-run/serve": "^2.16.7",
     "bcrypt": "^6.0.0",
     "browser-image-compression": "^2.0.2",
+    "flag-icons": "^7.5.0",
     "isbot": "^4.1.0",
     "lucide-react": "^0.511.0",
     "mongodb": "^6.17.0",

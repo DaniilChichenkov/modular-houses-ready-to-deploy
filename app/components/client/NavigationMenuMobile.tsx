@@ -1,7 +1,36 @@
+import { useLocation } from "@remix-run/react";
+
 type Props = {
   marginTop: number;
   isVisible: boolean;
   handleNavigationItemClick: (id: string) => void;
+};
+
+const translations = {
+  projects: {
+    rus: "Проекты",
+    est: "Projektid",
+    en: "Projects",
+    nor: "Prosjekter",
+  },
+  technology: {
+    rus: "Технология",
+    est: "Tehnoloogia",
+    en: "Technology",
+    nor: "Teknologi",
+  },
+  gallery: {
+    rus: "Галерея",
+    est: "Galerii",
+    en: "Gallery",
+    nor: "Galleri",
+  },
+  contacts: {
+    rus: "Контакты",
+    est: "Kontaktid",
+    en: "Contacts",
+    nor: "Kontakter",
+  },
 };
 
 const NavigationMenuMobile = ({
@@ -9,6 +38,18 @@ const NavigationMenuMobile = ({
   isVisible,
   handleNavigationItemClick,
 }: Props) => {
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <div
       role="menu"
@@ -22,7 +63,7 @@ const NavigationMenuMobile = ({
         className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
         role="menuitem"
       >
-        Проекты
+        {translations["projects"][currentLang]}
       </button>
 
       <button
@@ -30,7 +71,7 @@ const NavigationMenuMobile = ({
         className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
         role="menuitem"
       >
-        Технология
+        {translations["technology"][currentLang]}
       </button>
 
       <button
@@ -38,7 +79,7 @@ const NavigationMenuMobile = ({
         className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
         role="menuitem"
       >
-        Галерея
+        {translations["gallery"][currentLang]}
       </button>
 
       <button
@@ -46,7 +87,7 @@ const NavigationMenuMobile = ({
         className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
         role="menuitem"
       >
-        Контакты
+        {translations["contacts"][currentLang]}
       </button>
     </div>
   );

@@ -1,8 +1,108 @@
 import { useState, useRef, useEffect } from "react";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useLocation } from "@remix-run/react";
 import { ChevronDown } from "lucide-react";
 
 import useClientProjectsStore from "~/stores/ClientProjectsStore";
+
+const translations = {
+  filters: {
+    rus: "Фильтры",
+    est: "Filtrid",
+    en: "Filters",
+    nor: "Filtre",
+  },
+  roomsQty: {
+    rus: "Количество комнат",
+    est: "Tubade arv",
+    en: "Number of rooms",
+    nor: "Antall rom",
+  },
+  reset: {
+    rus: "Сбросить",
+    est: "Lähtesta",
+    en: "Reset",
+    nor: "Tilbakestill",
+  },
+  min: {
+    rus: "Мин",
+    est: "Min",
+    en: "Min",
+    nor: "Min",
+  },
+  max: {
+    rus: "Макс",
+    est: "Maks",
+    en: "Max",
+    nor: "Maks",
+  },
+  area: {
+    rus: "Площадь",
+    est: "Pindala",
+    en: "Area",
+    nor: "Areal",
+  },
+  price: {
+    rus: "Цена",
+    est: "Hind",
+    en: "Price",
+    nor: "Pris",
+  },
+  floorsQty: {
+    rus: "Количество этажей",
+    est: "Korruste arv",
+    en: "Number of floors",
+    nor: "Antall etasjer",
+  },
+
+  applyFilters: {
+    rus: "Применить фильтры",
+    est: "Rakenda filtrid",
+    en: "Apply filters",
+    nor: "Bruk filtre",
+  },
+  resetFilters: {
+    rus: "Сбросить фильтры",
+    est: "Lähtesta filtrid",
+    en: "Reset filters",
+    nor: "Tilbakestill filtre",
+  },
+  orderBy: {
+    rus: "Сортировать по",
+    est: "Sorteeri järgi",
+    en: "Order by",
+    nor: "Sorter etter",
+  },
+  orderByPrice: {
+    rus: "Сортировать по цене",
+    est: "Sorteeri hinna järgi",
+    en: "Order by price",
+    nor: "Sorter etter pris",
+  },
+  priceAsc: {
+    rus: "Цена по возрастанию",
+    est: "Hind kasvavalt",
+    en: "Price ascending",
+    nor: "Pris stigende",
+  },
+  priceDesc: {
+    rus: "Цена по убыванию",
+    est: "Hind kahanevalt",
+    en: "Price descending",
+    nor: "Pris synkende",
+  },
+  applyOrderBy: {
+    rus: "Применить сортировку",
+    est: "Rakenda sorteerimine",
+    en: "Apply order by",
+    nor: "Bruk sortering",
+  },
+  clearOrderBy: {
+    rus: "Очистить сортировку",
+    est: "Tühjenda sorteerimine",
+    en: "Clear order by",
+    nor: "Tøm sortering",
+  },
+};
 
 const ProjectsListFilter = () => {
   const fetcher = useFetcher<{
@@ -13,6 +113,18 @@ const ProjectsListFilter = () => {
   const [openedFilterDropdownId, setOpenedFilterDropdownId] = useState<
     number | null
   >(null);
+
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
 
   //State manager
   const setFetcherState = useClientProjectsStore(
@@ -30,6 +142,9 @@ const ProjectsListFilter = () => {
   //Track filters and order by dropdowns state (Open / closed)
   const [orderByOpened, setOrderByOpened] = useState<boolean>(false);
   const [filtersOpened, setFiltersOpened] = useState<boolean>(false);
+
+  //Track radio buttons state
+  const [selectedOrderByPrice, setSelectedOrderByPrice] = useState<string>("");
 
   const handleFilterSelectorClick = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
@@ -249,7 +364,7 @@ const ProjectsListFilter = () => {
           !filtersOpened && "mb-10"
         }`}
       >
-        Filters
+        {translations["filters"][currentLang]}
         <ChevronDown
           className={`transition-transform duration-200 ${
             filtersOpened && "rotate-180"
@@ -267,7 +382,10 @@ const ProjectsListFilter = () => {
               onClick={(e) => handleFilterSelectorClick(e, 0)}
               className="cursor-pointer flex items-center gap-2 border-b border-gray-300 pb-1 text-gray-700 transition-colors hover:border-gray-400 hover:text-gray-900 [&::-webkit-details-marker]:hidden"
             >
-              <span className="text-sm font-medium"> Колличество комнат </span>
+              <span className="text-sm font-medium">
+                {" "}
+                {translations["roomsQty"][currentLang]}{" "}
+              </span>
 
               <span className="transition-transform group-open:-rotate-180">
                 <svg
@@ -302,7 +420,7 @@ const ProjectsListFilter = () => {
                   }}
                   className="text-sm text-gray-700 underline transition-colors hover:text-gray-900"
                 >
-                  Сбросить
+                  {translations["reset"][currentLang]}
                 </button>
               </div>
 
@@ -311,7 +429,10 @@ const ProjectsListFilter = () => {
                 className="flex items-center gap-3 p-3"
               >
                 <label htmlFor="minRoomsQty">
-                  <span className="text-sm text-gray-700"> Min </span>
+                  <span className="text-sm text-gray-700">
+                    {" "}
+                    {translations["min"][currentLang]}{" "}
+                  </span>
 
                   <input
                     type="number"
@@ -323,7 +444,10 @@ const ProjectsListFilter = () => {
                 </label>
 
                 <label htmlFor="maxRoomsQty">
-                  <span className="text-sm text-gray-700"> Max </span>
+                  <span className="text-sm text-gray-700">
+                    {" "}
+                    {translations["max"][currentLang]}{" "}
+                  </span>
 
                   <input
                     type="number"
@@ -346,7 +470,10 @@ const ProjectsListFilter = () => {
               onClick={(e) => handleFilterSelectorClick(e, 1)}
               className="cursor-pointer flex items-center gap-2 border-b border-gray-300 pb-1 text-gray-700 transition-colors hover:border-gray-400 hover:text-gray-900 [&::-webkit-details-marker]:hidden"
             >
-              <span className="text-sm font-medium"> Цена </span>
+              <span className="text-sm font-medium">
+                {" "}
+                {translations["price"][currentLang]}{" "}
+              </span>
 
               <span className="transition-transform group-open:-rotate-180">
                 <svg
@@ -381,13 +508,16 @@ const ProjectsListFilter = () => {
                   type="button"
                   className="text-sm text-gray-700 underline transition-colors hover:text-gray-900"
                 >
-                  Сбросить
+                  {translations["reset"][currentLang]}
                 </button>
               </div>
 
               <form ref={priceFormRef} className="flex items-center gap-3 p-3">
                 <label htmlFor="priceMin">
-                  <span className="text-sm text-gray-700"> Min </span>
+                  <span className="text-sm text-gray-700">
+                    {" "}
+                    {translations["min"][currentLang]}{" "}
+                  </span>
 
                   <input
                     type="number"
@@ -398,7 +528,10 @@ const ProjectsListFilter = () => {
                 </label>
 
                 <label htmlFor="priceMax">
-                  <span className="text-sm text-gray-700"> Max </span>
+                  <span className="text-sm text-gray-700">
+                    {" "}
+                    {translations["max"][currentLang]}{" "}
+                  </span>
 
                   <input
                     type="number"
@@ -420,7 +553,10 @@ const ProjectsListFilter = () => {
               onClick={(e) => handleFilterSelectorClick(e, 3)}
               className="cursor-pointer flex items-center gap-2 border-b border-gray-300 pb-1 text-gray-700 transition-colors hover:border-gray-400 hover:text-gray-900 [&::-webkit-details-marker]:hidden"
             >
-              <span className="text-sm font-medium"> Площадь </span>
+              <span className="text-sm font-medium">
+                {" "}
+                {translations["area"][currentLang]}{" "}
+              </span>
 
               <span className="transition-transform group-open:-rotate-180">
                 <svg
@@ -455,13 +591,16 @@ const ProjectsListFilter = () => {
                   type="button"
                   className="text-sm text-gray-700 underline transition-colors hover:text-gray-900"
                 >
-                  Сбросить
+                  {translations["reset"][currentLang]}
                 </button>
               </div>
 
               <form ref={areaFormRef} className="flex items-center gap-3 p-3">
                 <label htmlFor="areaMin">
-                  <span className="text-sm text-gray-700"> Min </span>
+                  <span className="text-sm text-gray-700">
+                    {" "}
+                    {translations["min"][currentLang]}{" "}
+                  </span>
 
                   <input
                     type="number"
@@ -472,7 +611,10 @@ const ProjectsListFilter = () => {
                 </label>
 
                 <label htmlFor="areaMax">
-                  <span className="text-sm text-gray-700"> Max </span>
+                  <span className="text-sm text-gray-700">
+                    {" "}
+                    {translations["max"][currentLang]}{" "}
+                  </span>
 
                   <input
                     type="number"
@@ -494,7 +636,10 @@ const ProjectsListFilter = () => {
               onClick={(e) => handleFilterSelectorClick(e, 4)}
               className="cursor-pointer flex items-center gap-2 border-b border-gray-300 pb-1 text-gray-700 transition-colors hover:border-gray-400 hover:text-gray-900 [&::-webkit-details-marker]:hidden"
             >
-              <span className="text-sm font-medium"> Колличество этажей </span>
+              <span className="text-sm font-medium">
+                {" "}
+                {translations["floorsQty"][currentLang]}{" "}
+              </span>
 
               <span className="transition-transform group-open:-rotate-180">
                 <svg
@@ -529,7 +674,7 @@ const ProjectsListFilter = () => {
                   type="button"
                   className="text-sm text-gray-700 underline transition-colors hover:text-gray-900"
                 >
-                  Сбросить
+                  {translations["reset"][currentLang]}
                 </button>
               </div>
 
@@ -538,7 +683,10 @@ const ProjectsListFilter = () => {
                 className="flex items-center gap-3 p-3"
               >
                 <label htmlFor="floorsQtyMin">
-                  <span className="text-sm text-gray-700"> Min </span>
+                  <span className="text-sm text-gray-700">
+                    {" "}
+                    {translations["min"][currentLang]}{" "}
+                  </span>
 
                   <input
                     type="number"
@@ -549,7 +697,10 @@ const ProjectsListFilter = () => {
                 </label>
 
                 <label htmlFor="floorsQtyMax">
-                  <span className="text-sm text-gray-700"> Max </span>
+                  <span className="text-sm text-gray-700">
+                    {" "}
+                    {translations["max"][currentLang]}{" "}
+                  </span>
 
                   <input
                     type="number"
@@ -568,7 +719,7 @@ const ProjectsListFilter = () => {
             onClick={handleFiltersApplying}
             className="w-full md:w-4/12 inline-block rounded-sm border border-indigo-600 bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600"
           >
-            Apply filters
+            {translations["applyFilters"][currentLang]}
           </button>
 
           {/* Clear all filters btn */}
@@ -576,7 +727,7 @@ const ProjectsListFilter = () => {
             onClick={handleFiltersDrop}
             className="w-full md:w-4/12 inline-block rounded-sm border border-red-600 bg-red-600 px-5 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-600"
           >
-            Drop filters
+            {translations["resetFilters"][currentLang]}
           </button>
         </div>
       </div>
@@ -588,7 +739,7 @@ const ProjectsListFilter = () => {
           !orderByOpened && "mb-10"
         }`}
       >
-        Order by
+        {translations["orderBy"][currentLang]}
         <ChevronDown
           className={`transition-transform duration-200 ${
             orderByOpened && "rotate-180"
@@ -608,7 +759,7 @@ const ProjectsListFilter = () => {
             >
               <span className="text-sm font-medium">
                 {" "}
-                Упорядочить по цене:{" "}
+                {translations["orderByPrice"][currentLang]}:{" "}
               </span>
 
               <span className="transition-transform group-open:-rotate-180">
@@ -631,17 +782,15 @@ const ProjectsListFilter = () => {
 
             <div className="z-40 w-64 divide-y divide-gray-300 rounded border border-gray-300 bg-white shadow-sm group-open:absolute group-open:start-0 group-open:top-8">
               <div className="flex items-center justify-between px-3 py-2">
-                <span className="text-sm text-gray-700">
-                  {" "}
-                  Выбранно: <strong>Цена по возрастанию</strong>{" "}
-                </span>
-
                 <button
-                  onClick={() => handleSingleOrderByClear("sortByPrice")}
+                  onClick={() => {
+                    handleSingleOrderByClear("sortByPrice");
+                    setSelectedOrderByPrice("");
+                  }}
                   type="button"
                   className="text-sm text-gray-700 underline transition-colors hover:text-gray-900"
                 >
-                  Сбросить
+                  {translations["reset"][currentLang]}
                 </button>
               </div>
 
@@ -659,12 +808,16 @@ const ProjectsListFilter = () => {
                       className="size-5 rounded border-gray-300 shadow-sm"
                       id="orderByPriceInc"
                       value="asc"
-                      onChange={handleOrderBy}
+                      onChange={(e) => {
+                        handleOrderBy(e);
+                        setSelectedOrderByPrice("asc");
+                      }}
+                      checked={selectedOrderByPrice === "asc"}
                     />
 
                     <span className="text-sm font-medium text-gray-700">
                       {" "}
-                      Цена по возрастанию{" "}
+                      {translations["priceAsc"][currentLang]}{" "}
                     </span>
                   </label>
 
@@ -678,12 +831,16 @@ const ProjectsListFilter = () => {
                       className="size-5 rounded border-gray-300 shadow-sm"
                       id="orderByPriceDec"
                       value="desc"
-                      onChange={handleOrderBy}
+                      checked={selectedOrderByPrice === "desc"}
+                      onChange={(e) => {
+                        handleOrderBy(e);
+                        setSelectedOrderByPrice("desc");
+                      }}
                     />
 
                     <span className="text-sm font-medium text-gray-700">
                       {" "}
-                      Цена по убыванию{" "}
+                      {translations["priceDesc"][currentLang]}{" "}
                     </span>
                   </label>
                 </div>
@@ -698,7 +855,7 @@ const ProjectsListFilter = () => {
             onClick={handleOrderByApplying}
             className="w-full md:w-4/12 inline-block rounded-sm border border-indigo-600 bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600"
           >
-            Apply preferences
+            {translations["applyOrderBy"][currentLang]}
           </button>
 
           {/* Clear preferences button */}
@@ -706,7 +863,7 @@ const ProjectsListFilter = () => {
             onClick={handleOrderByClear}
             className="w-full md:w-4/12 inline-block rounded-sm border border-red-600 bg-red-600 px-5 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-600"
           >
-            Clear preferences
+            {translations["clearOrderBy"][currentLang]}
           </button>
         </div>
       </div>

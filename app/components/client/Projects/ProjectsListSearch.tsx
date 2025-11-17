@@ -1,13 +1,34 @@
 import { useEffect, useRef } from "react";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useLocation } from "@remix-run/react";
 
 import useClientProjectsStore from "~/stores/ClientProjectsStore";
+
+const translations = {
+  search: {
+    rus: "Поиск по названию",
+    est: "Otsi nime järgi",
+    en: "Search by name",
+    nor: "Søk etter navn",
+  },
+};
 
 const ProjectsListSearch = () => {
   const fetcher = useFetcher<{
     projects: any[];
     hasMoreProjects: boolean;
   }>();
+
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
 
   //This ref will hold debounce
   const searchDebounce = useRef<any | null>(null);
@@ -72,7 +93,7 @@ const ProjectsListSearch = () => {
       <label htmlFor="Search">
         <span className="text-sm md:text-lg font-bold text-gray-900">
           {" "}
-          Поиск по названию{" "}
+          {translations["search"][currentLang]}{" "}
         </span>
 
         <div className="relative">

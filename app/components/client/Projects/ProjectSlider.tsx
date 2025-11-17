@@ -62,10 +62,6 @@ const ProjectSlider = ({ imagePaths }: { imagePaths: string[] }) => {
   const setImages = useLightBoxStore((state) => state.setImages);
   const setActiveImage = useLightBoxStore((state) => state.setActiveImage);
 
-  console.log("Images paths");
-  console.log(imagePaths);
-  console.log("Images paths end");
-
   //Set images URL`s to store and open Lightbox
   const handleImageClick = (imageUrl: string) => {
     setImages(imagePaths as string[]);

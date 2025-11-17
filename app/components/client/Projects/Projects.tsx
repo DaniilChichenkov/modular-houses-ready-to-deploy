@@ -1,7 +1,18 @@
+import { useLocation } from "@remix-run/react";
+
 import ProjectsList from "./ProjectsList";
 import ProjectsListFilter from "./ProjectsListFilter";
 import ProjectsListPaggination from "./ProjectsListPaggination";
 import ProjectsListSearch from "./ProjectsListSearch";
+
+const translations = {
+  projects: {
+    rus: "Проекты",
+    est: "Projektid",
+    en: "Projects",
+    nor: "Prosjekter",
+  },
+};
 
 const Projects = ({
   projects,
@@ -19,21 +30,33 @@ const Projects = ({
     featuresList: string;
   }[];
 }) => {
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <section id="projects" className="py-10">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start lg:gap-8">
           <div className="lg:col-span-1">
             <div className="max-w-lg lg:max-w-none">
-              <h2 className="text-2xl font-semibold text-gray-900 sm:text-3xl">
-                Проекты
+              <h2 className="text-2xl lg:text-4xl font-semibold text-gray-900 sm:text-3xl">
+                {translations["projects"][currentLang]}
               </h2>
 
-              <p className="mt-4 text-gray-700">
+              {/* <p className="mt-4 text-gray-700">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
                 doloremque saepe architecto maiores repudiandae amet perferendis
                 repellendus, reprehenderit voluptas sequi.
-              </p>
+              </p> */}
             </div>
           </div>
 

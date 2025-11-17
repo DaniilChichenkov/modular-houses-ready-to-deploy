@@ -1,5 +1,5 @@
 //For test purposes
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useLocation } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 import useLightBoxStore from "~/stores/LightBoxStore";
@@ -9,9 +9,21 @@ const TechnologyArticleHeader = ({
 }: {
   content: Record<"est" | "eng" | "rus" | "nor", string>;
 }) => {
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <h3 className="text-2xl font-semibold text-gray-700 sm:text-3xl">
-      {content["eng"]}
+      {content[currentLang === "en" ? "eng" : currentLang]}
     </h3>
   );
 };
@@ -21,9 +33,21 @@ const TechnologyArticleSubHeader = ({
 }: {
   content: Record<"est" | "eng" | "rus" | "nor", string>;
 }) => {
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <h4 className="text-xl font-semibold text-gray-700 sm:text-2xl mt-5">
-      {content["eng"]}
+      {content[currentLang === "en" ? "eng" : currentLang]}
     </h4>
   );
 };
@@ -33,9 +57,21 @@ const TechnologyArticleSubHeaderSmall = ({
 }: {
   content: Record<"est" | "eng" | "rus" | "nor", string>;
 }) => {
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <h5 className="text-lg font-semibold text-gray-700 sm:text-xl mt-5">
-      {content["eng"]}
+      {content[currentLang === "en" ? "eng" : currentLang]}
     </h5>
   );
 };
@@ -45,7 +81,24 @@ const TechnologyArticlePlainText = ({
 }: {
   content: Record<"est" | "eng" | "rus" | "nor", string>;
 }) => {
-  return <p className="text-gray-500 mt-4 lg:w-8/12">{content["eng"]}</p>;
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
+  return (
+    <p className="text-gray-500 mt-4 lg:w-8/12">
+      {" "}
+      {content[currentLang === "en" ? "eng" : currentLang]}
+    </p>
+  );
 };
 
 const TechnologyArticleImagesCollection = () => {
@@ -117,10 +170,22 @@ const TechnologyArticleListItem = ({
   content: Record<"eng" | "rus" | "est" | "nor", string>;
   route?: string;
 }) => {
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <li>
       {listItemType === "listItemText" ? (
-        <>{content["eng"]}</>
+        <>{content[currentLang === "en" ? "eng" : currentLang]}</>
       ) : listItemType === "listItemLink" ? (
         <a
           href={`https://${route}`}
@@ -128,7 +193,7 @@ const TechnologyArticleListItem = ({
           rel="noopener noreferrer"
           className="block transition-colors text-indigo-600 hover:text-indigo-800 underline"
         >
-          {content["eng"]}
+          {content[currentLang === "en" ? "eng" : currentLang]}
         </a>
       ) : (
         ""
@@ -158,10 +223,22 @@ const TechnologyArticleList = ({
   //Array of children
   const listChildren = content.children;
 
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <>
       <p className="font-bold text-lg text-gray-700 mt-5">
-        {listTitle["eng"]}:
+        {listTitle[currentLang === "en" ? "eng" : currentLang]}:
       </p>
       <ul className="space-y-1 mt-2 pl-2">
         {listChildren &&
@@ -197,11 +274,27 @@ const TechnologyArticleStandaloneLink = ({
     };
   };
 }) => {
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <div className="mt-5 flex flex-col items-start justify-start">
       {withAnnotaion && (
         <p className="text-xs text-gray-700">
-          {content.linkAnnotation?.content["eng"]}
+          {
+            content.linkAnnotation?.content[
+              currentLang === "en" ? "eng" : currentLang
+            ]
+          }
         </p>
       )}
       <a
@@ -210,7 +303,7 @@ const TechnologyArticleStandaloneLink = ({
         rel="noopener noreferrer"
         className="block transition-colors text-indigo-600 hover:text-indigo-800 underline"
       >
-        {content.content["eng"]}
+        {content.content[currentLang === "en" ? "eng" : currentLang]}
       </a>
     </div>
   );

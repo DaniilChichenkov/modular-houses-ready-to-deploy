@@ -1,4 +1,26 @@
 import { ReactNode } from "react";
+import { useLocation } from "@remix-run/react";
+
+const translations = {
+  contactData: {
+    rus: "Контактные данные",
+    est: "Kontaktandmed",
+    en: "Contact details",
+    nor: "Kontaktinformasjon",
+  },
+  location: {
+    rus: "Местоположение",
+    est: "Asukoht",
+    en: "Location",
+    nor: "Plassering",
+  },
+  ourTeam: {
+    rus: "Наша команда",
+    est: "Meie meeskond",
+    en: "Our team",
+    nor: "Vårt team",
+  },
+};
 
 const ContactsSectionButton = ({ innerText }: { innerText: string }) => {
   return (
@@ -64,17 +86,24 @@ const ContactsSectionForm = ({ children }) => {
   );
 };
 
-const ContactsSectionMapFrame = () => {
+const ContactsSectionMapFrame = ({ src }: { src: string }) => {
   return (
     <div className="relative w-full pb-[75%] mt-5">
-      <iframe
+      {/* <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13669.621941924257!2d24.79189865039252!3d59.429964108740904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4692eb54f4edfe43%3A0x206e6dcbdf41435e!2s%C3%9Clemiste%20Centre!5e0!3m2!1sen!2see!4v1748823182825!5m2!1sen!2see"
         className="absolute top-0 left-0 w-full h-full border-0"
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         title="Ülemiste Centre map"
-      />
+      /> */}
+      <iframe
+        src={src}
+        width="100%"
+        height="450"
+        className="absolute top-0 left-0 w-full h-full border-0"
+        title="Aboba"
+      ></iframe>
     </div>
   );
 };
@@ -139,11 +168,56 @@ const ContactsSectionTeamMember = ({
     .filter((item) => item[1] === true)
     .map((item) => item[0]);
 
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <div className="w-full rounded-md border border-gray-300 p-4 shadow-sm shadow-gray-400 sm:p-6 mt-7">
       <ContactsSectionSubHeader innerText={name} />
+      <div className="w-full flex justify-start items-center gap-x-2 py-0.5">
+        {spokenLanguages &&
+          spokenLanguages.length &&
+          spokenLanguages.map((item) =>
+            item === "est" ? (
+              <span
+                key={`${name}-${position}-${item}`}
+                className="fi fi-ee"
+              ></span>
+            ) : item === "eng" ? (
+              <span
+                key={`${name}-${position}-${item}`}
+                className="fi fi-gb-eng"
+              ></span>
+            ) : item === "nor" ? (
+              <span
+                key={`${name}-${position}-${item}`}
+                className="fi fi-no"
+              ></span>
+            ) : item === "rus" ? (
+              <span
+                key={`${name}-${position}-${item}`}
+                className="fi fi-ru"
+              ></span>
+            ) : (
+              ""
+            )
+          )}
+      </div>
       <ContactsSectionPlainText
-        innerText={JSON.parse(position).content["rus"]}
+        innerText={
+          JSON.parse(position).content[
+            currentLang === "en" ? "eng" : currentLang
+          ]
+        }
       />
       <ContactsSectionPlainText innerText={tel} />
       <ContactsSectionEmail innerText={email} />
@@ -157,6 +231,7 @@ const ContactsSection = ({ children }: { children: ReactNode }) => {
 
 const Contacts = ({
   members,
+  businessContactInfo,
 }: {
   members: {
     name: string;
@@ -166,34 +241,98 @@ const Contacts = ({
     languages: string;
     _id: string;
   }[];
+  businessContactInfo: {
+    businessTitle: string;
+    emailsArr: { value: string; id: string }[];
+    phoneNumbersArr: { value: string; id: string }[];
+    physicalAddressArr: { value: string; id: string }[];
+    addressToDisplayInFrame: {
+      country: string;
+      city: string;
+      street: string;
+      houseNumber: string;
+    };
+  };
 }) => {
+  const {
+    businessTitle,
+    emailsArr,
+    phoneNumbersArr,
+    physicalAddressArr,
+    addressToDisplayInFrame,
+  } = businessContactInfo;
+
+  const fullAddress = Object.values(addressToDisplayInFrame).join(", ");
+  const encodedAddress = `https://maps.google.com/maps?q=${encodeURIComponent(
+    fullAddress
+  )}&t=&z=17&ie=UTF8&iwloc=&output=embed`;
+
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
+
   return (
     <section id="contacts">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:items-start md:gap-8">
           {/* Overall contacts */}
           <ContactsSection>
-            <ContactsSectionHeader innerText="Контактные данные" />
-            <ContactsSectionSubHeader
-              innerText="Название фирмы"
-              withMargin={true}
+            <ContactsSectionHeader
+              innerText={translations["contactData"][currentLang]}
             />
-            <ContactsSectionPlainText innerText="Строка адреса" />
-            <ContactsSectionPlainText innerText="Строка адреса" />
-            <ContactsSectionPlainText innerText="Строка адреса" />
+            {businessTitle && (
+              <ContactsSectionSubHeader
+                innerText={businessTitle}
+                withMargin={true}
+              />
+            )}
 
+            {/* Addresses */}
+            {physicalAddressArr &&
+              physicalAddressArr.length &&
+              physicalAddressArr.map((item) => (
+                <ContactsSectionPlainText
+                  key={item.id}
+                  innerText={item.value}
+                />
+              ))}
+
+            {/* Phone numbers */}
             <ContactsSection>
-              <ContactsSectionPlainText innerText="Доп секция" />
-              <ContactsSectionPlainText innerText="Доп секция пример текста" />
+              {phoneNumbersArr &&
+                phoneNumbersArr.length &&
+                phoneNumbersArr.map((item) => (
+                  <ContactsSectionPlainText
+                    key={item.id}
+                    innerText={item.value}
+                  />
+                ))}
             </ContactsSection>
 
-            <ContactsSectionEmail innerText="example@email.com" />
+            {/* Emails */}
+            <ContactsSection>
+              {emailsArr &&
+                emailsArr.length &&
+                emailsArr.map((item) => (
+                  <ContactsSectionEmail key={item.id} innerText={item.value} />
+                ))}
+            </ContactsSection>
           </ContactsSection>
 
           {/* Location */}
           <ContactsSection>
-            <ContactsSectionHeader innerText="Местоположение" />
-            <ContactsSectionMapFrame />
+            <ContactsSectionHeader
+              innerText={translations["location"][currentLang]}
+            />
+            <ContactsSectionMapFrame src={encodedAddress} />
           </ContactsSection>
 
           {/* Feedback */}
@@ -214,8 +353,10 @@ const Contacts = ({
         </div>
 
         <ContactsSection>
-          <ContactsSectionHeader innerText="Our team" />
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 md:gap-x-10 justify-items-center">
+          <ContactsSectionHeader
+            innerText={translations["ourTeam"][currentLang]}
+          />
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-x-10 justify-items-center">
             {/* Team */}
             {members &&
               members.length &&

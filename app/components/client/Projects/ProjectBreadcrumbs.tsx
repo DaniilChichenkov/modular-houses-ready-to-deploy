@@ -1,12 +1,39 @@
 import { ChevronRight } from "lucide-react";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate, useLocation } from "@remix-run/react";
 
 type Props = {
   projectTitle: string;
 };
 
+const translations = {
+  main: {
+    rus: "Главная",
+    est: "Avaleht",
+    en: "Home",
+    nor: "Hjem",
+  },
+  projects: {
+    rus: "Проекты",
+    est: "Projektid",
+    en: "Projects",
+    nor: "Prosjekter",
+  },
+};
+
 const ProjectBreadcrumbs = ({ projectTitle }: Props) => {
   const nav = useNavigate();
+
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
 
   //Handle navigation (With preserving URL state)
   const handleNavigation = (elementToScrollTo?: string) => {
@@ -29,7 +56,7 @@ const ProjectBreadcrumbs = ({ projectTitle }: Props) => {
             onClick={() => handleNavigation()}
             className="block transition-colors hover:text-gray-900"
           >
-            Главная
+            {translations["main"][currentLang]}
           </button>
         </li>
 
@@ -42,7 +69,7 @@ const ProjectBreadcrumbs = ({ projectTitle }: Props) => {
             onClick={() => handleNavigation("projects")}
             className="block transition-colors hover:text-gray-900"
           >
-            Проекты
+            {translations["projects"][currentLang]}
           </button>
         </li>
 

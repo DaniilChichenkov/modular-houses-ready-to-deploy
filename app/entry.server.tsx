@@ -23,6 +23,7 @@ if (!fs.existsSync(UPLOAD_DIR)) {
 //For testing
 import { connectToDB } from "./utils/db";
 import User from "./models/User";
+import seedDatabase from "./utils/seedDatabase";
 
 const ABORT_DELAY = 5_000;
 
@@ -163,5 +164,7 @@ async function createTestUser() {
       email: "example@email.com",
     });
   }
+
+  await seedDatabase();
 }
 createTestUser();
