@@ -155,13 +155,12 @@ function handleBrowserRequest(
 //For testing purposes - creating a first user
 async function createTestUser() {
   await connectToDB();
-  const isCreated = await User.findOne({ name: "Daniil" });
+  const isCreated = await User.findOne({ name: process.env.USERNAME });
 
   if (!isCreated) {
     await User.create({
-      name: "Daniil",
-      password: "12345",
-      email: "example@email.com",
+      name: process.env.USERNAME,
+      password: process.env.USERPASS,
     });
   }
 

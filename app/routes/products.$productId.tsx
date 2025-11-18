@@ -1,4 +1,8 @@
-import { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node";
+import {
+  LoaderFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/node";
 import { useLoaderData, useLocation } from "@remix-run/react";
 import { ChevronRight, Star, HandCoins } from "lucide-react";
 import path from "path";
@@ -14,6 +18,18 @@ import {
 } from "~/components/client";
 
 import HomeLayout from "~/layouts/HomeLayout";
+
+export const meta: MetaFunction = () => {
+  return [
+    // MUST-HAVES
+    { title: `Kuber - House Page` },
+    {
+      name: "description",
+      content:
+        "Discover our modern modular house projects built with advanced technology.",
+    },
+  ];
+};
 
 export const loader: LoaderFunction = async ({
   params,
@@ -152,8 +168,6 @@ const ProductRoute = () => {
       };
     }[];
   }[] = JSON.parse(productData.featuresList);
-
-  console.log(productData);
 
   return (
     <>

@@ -11,6 +11,7 @@ import "./tailwind.css";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { rel: "icon", href: "/favicon.ico" },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
@@ -31,6 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
+        <title>Kuber</title>
         <Meta />
         <Links />
       </head>

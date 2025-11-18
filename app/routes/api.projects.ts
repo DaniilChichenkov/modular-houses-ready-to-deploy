@@ -34,7 +34,7 @@ export const loader: LoaderFunction = async ({
     //Request for data
     //Get projects (1 page consists of 6 projects)
     //Change to 6 (Set to 1 for dev purposes)
-    const projectsPageSize = 1;
+    const projectsPageSize = 6;
 
     //Calculate offset (Skip previous pages)
     const projectsToSkip = projectsPageSize * (+projectsPage! - 1);

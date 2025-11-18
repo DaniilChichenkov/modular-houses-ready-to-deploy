@@ -3,6 +3,7 @@ import {
   LoaderFunctionArgs,
   json,
   redirect,
+  MetaFunction,
 } from "@remix-run/node";
 import { useLoaderData, useFetcher } from "@remix-run/react";
 import { useEffect, useCallback } from "react";
@@ -32,6 +33,31 @@ import galleryModel from "~/models/Gallery";
 import memberModel from "~/models/Member";
 import businessInfoModel from "~/models/BusinessInfo";
 import mongoose from "mongoose";
+
+export const meta: MetaFunction = () => {
+  return [
+    // MUST-HAVES
+    { title: "Kuber" },
+    {
+      name: "description",
+      content:
+        "Discover our modern modular house projects built with advanced technology.",
+    },
+
+    // OpenGraph
+    // { property: "og:title", content: "Projects — Modular Houses" },
+    // { property: "og:description", content: "Discover our modern modular house projects." },
+    // { property: "og:image", content: "https://my-domain.com/og/project-cover.jpg" },
+    // { property: "og:type", content: "website" },
+    // { property: "og:url", content: "https://my-domain.com/projects" },
+
+    // // Twitter
+    // { name: "twitter:card", content: "summary_large_image" },
+    // { name: "twitter:title", content: "Projects — Modular Houses" },
+    // { name: "twitter:description", content: "Discover our modern modular house projects." },
+    // { name: "twitter:image", content: "https://my-domain.com/og/project-cover.jpg" },
+  ];
+};
 
 export const loader: LoaderFunction = async ({
   request,

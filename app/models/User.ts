@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 const userSchema = new Schema({
   name: String,
   password: String,
-  email: String,
 });
 
 //Hash password before saving in DB
