@@ -4,7 +4,7 @@ import {
   redirect,
   json,
 } from "@remix-run/node";
-import { Form, Link, useActionData } from "@remix-run/react";
+import { Form, useActionData } from "@remix-run/react";
 import verifyPassword from "~/utils/verifyPassword";
 import { getSession, commitSession } from "~/utils/session";
 

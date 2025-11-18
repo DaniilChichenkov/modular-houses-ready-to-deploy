@@ -178,7 +178,7 @@ export const loader: LoaderFunction = async ({
     const projectsParsed = projects ? await projects.json() : null;
 
     //Get tech article by techPage url param (Id is stored there if not "none" (No articles exist at all))
-    let techArticle;
+    let techArticle = null;
     if (techPage && techPage !== "none") {
       try {
         await connectToDB();
@@ -200,7 +200,7 @@ export const loader: LoaderFunction = async ({
     }
 
     //Get titles of all tech articles (For navigation between them)
-    let techArticlesTitles;
+    let techArticlesTitles = null;
     if (techPage && techPage !== "none") {
       try {
         await connectToDB();
@@ -260,7 +260,7 @@ export const loader: LoaderFunction = async ({
     }
 
     //Get team members data (Contacts)
-    let teamMembers;
+    let teamMembers = null;
     try {
       await connectToDB();
       const members = await memberModel.find({}, { __v: 0 }).lean();
@@ -271,11 +271,11 @@ export const loader: LoaderFunction = async ({
         }));
       }
     } catch (error) {
-      teamMembers = error;
+      teamMembers = null;
     }
 
     //Get business info data
-    let businessData;
+    let businessData = null;
     try {
       await connectToDB();
       const data = await businessInfoModel
@@ -285,7 +285,7 @@ export const loader: LoaderFunction = async ({
         businessData = data;
       }
     } catch (error) {
-      businessData = error;
+      businessData = null;
     }
 
     //Return data to client
@@ -464,24 +464,30 @@ const IndexRoute = () => {
     }
 
     //Set tech article active link
-    setActiveLink(techArticle._id);
+    setActiveLink(techArticle ? techArticle._id : "null");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <HomeLayout>
       <Header />
-      <Projects projects={projects} />
+      {projects && projects.length && <Projects projects={projects} />}
       {/* <QuickStats /> */}
-      <Technology
-        techArticlesTitles={techArticlesTitles}
-        techArticleContent={techArticle}
-      />
-      <Gallery titles={galleriesTitles} currentGalleryFiles={galleryFiles} />
-      <Contacts
-        members={teamMembers}
-        businessContactInfo={businessContactInfo}
-      />
+      {techArticlesTitles && techArticlesTitles && (
+        <Technology
+          techArticlesTitles={techArticlesTitles}
+          techArticleContent={techArticle}
+        />
+      )}
+      {galleriesTitles && galleriesTitles.length && (
+        <Gallery titles={galleriesTitles} currentGalleryFiles={galleryFiles} />
+      )}
+      {teamMembers && teamMembers.length && (
+        <Contacts
+          members={teamMembers}
+          businessContactInfo={businessContactInfo}
+        />
+      )}
       <ScrollToElement />
       <LightBox />
       {isProjectDetailedSearchModalWindowOpen && <ProjectDetailedSearchModal />}
