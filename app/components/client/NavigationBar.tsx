@@ -57,12 +57,9 @@ const NavigationBar = () => {
     setMobileMenuVisible((prev) => !prev);
   };
 
-  const handleMobileMenuNavigationClick = (id: string) => {
+  const handleMobileMenuNavigationClick = () => {
     //Hide mobile navigation menu
     setMobileMenuVisible(false);
-
-    //Scroll element into view
-    scrollToElementById(id);
   };
 
   //Height of a navbar (Rem)

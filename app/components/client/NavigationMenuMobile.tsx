@@ -1,10 +1,11 @@
-import { useLocation } from "@remix-run/react";
+import { useLocation, useNavigate } from "@remix-run/react";
 
 type Props = {
   marginTop: number;
   isVisible: boolean;
-  handleNavigationItemClick: (id: string) => void;
+  handleNavigationItemClick: () => void;
 };
+import scrollToElementById from "~/utils/scrollToElementById";
 
 const translations = {
   projects: {
@@ -50,6 +51,22 @@ const NavigationMenuMobile = ({
       ? searchLang
       : "en";
 
+  //Handle navigation button click
+  const nav = useNavigate();
+  const handleNavigationClick = (elementId: string) => {
+    if (location.pathname !== "/") {
+      const url = new URL(window.location.href);
+
+      //Add element which page should be scrolled to (If provided)
+      if (elementId) url.searchParams.set("scrollToElement", elementId);
+
+      const urlSearch = url.searchParams.toString();
+      nav(`/?${urlSearch}`);
+    } else {
+      scrollToElementById(elementId);
+    }
+  };
+
   return (
     <div
       role="menu"
@@ -59,7 +76,10 @@ const NavigationMenuMobile = ({
       } left-1/2 transform -translate-x-1/2 w-11/12 overflow-hidden rounded border border-gray-300 bg-white shadow-sm z-20`}
     >
       <button
-        onClick={() => handleNavigationItemClick("projects")}
+        onClick={() => {
+          handleNavigationClick("projects");
+          handleNavigationItemClick();
+        }}
         className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
         role="menuitem"
       >
@@ -67,7 +87,10 @@ const NavigationMenuMobile = ({
       </button>
 
       <button
-        onClick={() => handleNavigationItemClick("technology")}
+        onClick={() => {
+          handleNavigationClick("technology");
+          handleNavigationItemClick();
+        }}
         className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
         role="menuitem"
       >
@@ -75,7 +98,10 @@ const NavigationMenuMobile = ({
       </button>
 
       <button
-        onClick={() => handleNavigationItemClick("gallery")}
+        onClick={() => {
+          handleNavigationClick("gallery");
+          handleNavigationItemClick();
+        }}
         className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
         role="menuitem"
       >
@@ -83,7 +109,10 @@ const NavigationMenuMobile = ({
       </button>
 
       <button
-        onClick={() => handleNavigationItemClick("contacts")}
+        onClick={() => {
+          handleNavigationClick("contacts");
+          handleNavigationItemClick();
+        }}
         className="block w-full text-left px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
         role="menuitem"
       >
