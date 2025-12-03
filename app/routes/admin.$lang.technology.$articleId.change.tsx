@@ -13,6 +13,7 @@ import { connectToDB } from "~/utils/db";
 import technologyModel from "~/models/Technology";
 import { useLoaderData, useFetcher, useParams } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import compressFile from "~/utils/compressImageFile";
 
@@ -372,7 +373,7 @@ const ChangeTechnologyArticle = () => {
                 return {
                   file: item,
                   previewUrl: URL.createObjectURL(item),
-                  uuid: crypto.randomUUID(),
+                  uuid: uuidv4(),
                 };
               });
 
