@@ -1,6 +1,7 @@
 import { useParams } from "@remix-run/react";
 import { ChevronDown } from "lucide-react";
 import { useState, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import useChangeTechnologyItemStore from "~/stores/ChangeTechnologyStore";
 
@@ -114,7 +115,7 @@ const ChangeTechnologyContent = () => {
         nor: "",
       },
       children: [],
-      uuid: crypto.randomUUID(),
+      uuid: uuidv4(),
       parentUUID: null,
     });
   };
@@ -131,7 +132,7 @@ const ChangeTechnologyContent = () => {
         nor: "",
       },
       children: [],
-      uuid: crypto.randomUUID(),
+      uuid: uuidv4(),
       parentUUID: null,
     });
   };
@@ -148,7 +149,7 @@ const ChangeTechnologyContent = () => {
         nor: "",
       },
       children: [],
-      uuid: crypto.randomUUID(),
+      uuid: uuidv4(),
       parentUUID: null,
     });
   };
@@ -177,7 +178,7 @@ const ChangeTechnologyContent = () => {
         },
         linkRoute: null,
         children: [],
-        uuid: crypto.randomUUID(),
+        uuid: uuidv4(),
         parentUUID: null,
       });
     } else {
@@ -193,7 +194,7 @@ const ChangeTechnologyContent = () => {
         },
         selectedLang: "est",
         children: [],
-        uuid: crypto.randomUUID(),
+        uuid: uuidv4(),
         parentUUID: null,
       });
     }
@@ -204,7 +205,7 @@ const ChangeTechnologyContent = () => {
     addContentItem({
       type: "list",
       children: [],
-      uuid: crypto.randomUUID(),
+      uuid: uuidv4(),
       parentUUID: null,
       listTitle: {
         content: {
@@ -223,7 +224,7 @@ const ChangeTechnologyContent = () => {
     addContentItem({
       type: "imagesCollection",
       children: [],
-      uuid: crypto.randomUUID(),
+      uuid: uuidv4(),
       parentUUID: null,
     });
   };

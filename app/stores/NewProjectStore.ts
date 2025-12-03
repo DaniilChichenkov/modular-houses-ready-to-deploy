@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { v4 as uuidv4 } from "uuid";
 
 interface Store {
   //State
@@ -210,7 +211,7 @@ const useNewProjectStore = create<Store>((set) => ({
       featuresList: [
         ...state.featuresList,
         {
-          uuid: crypto.randomUUID(),
+          uuid: uuidv4(),
           selectedLang: "est",
           title: {
             eng: null,
@@ -237,7 +238,7 @@ const useNewProjectStore = create<Store>((set) => ({
               listItems: [
                 ...parent.listItems,
                 {
-                  uuid: crypto.randomUUID(),
+                  uuid: uuidv4(),
                   content: { eng: null, est: null, rus: null, nor: null },
                 },
               ],

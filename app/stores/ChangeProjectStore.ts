@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { v4 as uuidv4 } from "uuid";
 
 interface Store {
   price: number | null;
@@ -257,7 +258,7 @@ const useChangeProjectStore = create<Store>((set, get) => ({
       carouselImages: files.map((item) => ({
         file: item,
         previewUrl: URL.createObjectURL(item),
-        uuid: crypto.randomUUID(),
+        uuid: uuidv4(),
       })),
     }),
 
@@ -280,7 +281,7 @@ const useChangeProjectStore = create<Store>((set, get) => ({
           URL.revokeObjectURL(img.previewUrl);
 
           return {
-            uuid: crypto.randomUUID(),
+            uuid: uuidv4(),
             file,
             previewUrl: URL.createObjectURL(file),
           };
@@ -299,7 +300,7 @@ const useChangeProjectStore = create<Store>((set, get) => ({
       featuresList: [
         ...state.featuresList,
         {
-          uuid: crypto.randomUUID(),
+          uuid: uuidv4(),
           selectedLang: "est",
           title: {
             eng: null,
@@ -342,7 +343,7 @@ const useChangeProjectStore = create<Store>((set, get) => ({
               listItems: [
                 ...parent.listItems,
                 {
-                  uuid: crypto.randomUUID(),
+                  uuid: uuidv4(),
                   content: { eng: null, est: null, rus: null, nor: null },
                 },
               ],

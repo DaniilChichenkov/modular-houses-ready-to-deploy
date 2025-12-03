@@ -1,5 +1,6 @@
 import { useFetcher, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect, useState, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   ChangeGalleryTitle,
@@ -346,7 +347,7 @@ const ChangeGallery = () => {
         return {
           file: item,
           previewUrl: URL.createObjectURL(item),
-          uuid: crypto.randomUUID(),
+          uuid: uuidv4(),
         };
       });
 

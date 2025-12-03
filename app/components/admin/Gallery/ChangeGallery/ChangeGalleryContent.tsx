@@ -1,5 +1,6 @@
 import { useParams } from "@remix-run/react";
 import { Plus, Pen, Trash2 } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 
 import useChangeGalleryStore from "~/stores/ChangeGalleryStore";
 
@@ -106,7 +107,7 @@ const ChangeGalleryContent = () => {
         const file = {
           file: files[i],
           previewUrl: URL.createObjectURL(files[i]),
-          uuid: crypto.randomUUID(),
+          uuid: uuidv4(),
         };
         filesToUpload.push(file);
       }

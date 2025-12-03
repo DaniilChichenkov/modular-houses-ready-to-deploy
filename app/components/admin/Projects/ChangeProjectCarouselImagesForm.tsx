@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import { Pen, Trash2 } from "lucide-react";
 import { useParams } from "@remix-run/react";
+import { v4 as uuidv4 } from "uuid";
 
 import useChangeProjectStore from "~/stores/ChangeProjectStore";
 
@@ -78,7 +79,7 @@ const ChangeProjectCarouselImagesForm = ({ imagesUrls }: Props) => {
       filesToUpload.push({
         previewUrl: URL.createObjectURL(files[i]),
         file: files[i],
-        uuid: crypto.randomUUID(),
+        uuid: uuidv4(),
       });
     }
 

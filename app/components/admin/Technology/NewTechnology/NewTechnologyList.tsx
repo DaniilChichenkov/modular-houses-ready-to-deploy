@@ -1,6 +1,7 @@
 import { useParams } from "@remix-run/react";
 import { useState } from "react";
 import { ChevronDown, ChevronRight, Trash2 } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 
 import useNewTechnologyItemStore from "~/stores/NewTechnologyStore";
 
@@ -352,7 +353,7 @@ const NewTechnologyList = ({
     //Add new link
     if (type === "link") {
       addListItem(uuid, {
-        uuid: crypto.randomUUID(),
+        uuid: uuidv4(),
         linkRoute: "",
         type: "listItemLink",
         content: {
@@ -366,7 +367,7 @@ const NewTechnologyList = ({
       //Add new text
     } else if (type === "text") {
       addListItem(uuid, {
-        uuid: crypto.randomUUID(),
+        uuid: uuidv4(),
         type: "listItemText",
         content: {
           est: "",

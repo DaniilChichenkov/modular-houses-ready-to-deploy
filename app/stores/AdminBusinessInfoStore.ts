@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { v4 as uuidv4 } from "uuid";
 
 type ArrayItem = {
   id: string;
@@ -109,7 +110,7 @@ const useAdminBusinessInfoStore = create<Store>((set) => ({
         set((state) => ({
           businessPhysicalAddressesArray: [
             ...state.businessPhysicalAddressesArray,
-            { id: crypto.randomUUID(), value: "" },
+            { id: uuidv4(), value: "" },
           ],
         }));
         break;
@@ -118,7 +119,7 @@ const useAdminBusinessInfoStore = create<Store>((set) => ({
         set((state) => ({
           businessEmailsArray: [
             ...state.businessEmailsArray,
-            { id: crypto.randomUUID(), value: "" },
+            { id: uuidv4(), value: "" },
           ],
         }));
         break;
@@ -127,7 +128,7 @@ const useAdminBusinessInfoStore = create<Store>((set) => ({
         set((state) => ({
           businessPhoneNumbersArray: [
             ...state.businessPhoneNumbersArray,
-            { id: crypto.randomUUID(), value: "" },
+            { id: uuidv4(), value: "" },
           ],
         }));
         break;

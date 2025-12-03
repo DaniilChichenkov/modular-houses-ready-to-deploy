@@ -1,5 +1,6 @@
 import { useParams } from "@remix-run/react";
 import { Plus, Trash2, Pen } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 
 import useChangeTechnologyItemStore from "~/stores/ChangeTechnologyStore";
 
@@ -132,7 +133,7 @@ const ChangeTechnologyImagesCollection = ({
       const file = {
         file: files[i],
         previewUrl: URL.createObjectURL(files[i]),
-        uuid: crypto.randomUUID(),
+        uuid: uuidv4(),
       };
       filesToUploadInStore.push(file);
     }
