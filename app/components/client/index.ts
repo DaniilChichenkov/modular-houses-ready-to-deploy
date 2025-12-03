@@ -17,7 +17,7 @@ import LightBox from "./LightBox";
 import Gallery from "./Gallery";
 import Contacts from "./Contacts";
 import Footer from "./Footer";
-import ScrollToElement from "./scrollToElement";
+import ScrollToElement from "./ScrollToElement";
 import ProjectDetailedSearchModal from "./Projects/ProjectDetailedSearchModal";
 
 export {

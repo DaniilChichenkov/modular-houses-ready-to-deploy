@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import { Pen, Trash2 } from "lucide-react";
 import { useParams } from "@remix-run/react";
+import { v4 as uuidv4 } from "uuid";
 
 const translations = {
   sliderImages: {
@@ -66,7 +67,7 @@ const NewProjectCarouselmagesForm = () => {
       filesToUpload.push({
         previewUrl: url,
         file: files[i],
-        uuid: crypto.randomUUID(),
+        uuid: uuidv4(),
       });
     }
 
@@ -109,7 +110,7 @@ const NewProjectCarouselmagesForm = () => {
     //Object which will be uploaded to Zustand Store
     const fileToUpload = {
       file,
-      uuid: crypto.randomUUID(),
+      uuid: uuidv4(),
       previewUrl: URL.createObjectURL(file),
     };
 
