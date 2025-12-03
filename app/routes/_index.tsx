@@ -473,24 +473,30 @@ const IndexRoute = () => {
       <Header />
       {projects && projects.length && <Projects projects={projects} />}
       {/* <QuickStats /> */}
-      {techArticlesTitles && techArticlesTitles && (
+      {(techArticlesTitles && techArticlesTitles && (
         <Technology
           techArticlesTitles={techArticlesTitles}
           techArticleContent={techArticle}
         />
-      )}
-      {galleriesTitles && galleriesTitles.length && (
+      )) ||
+        null}
+      {(galleriesTitles && galleriesTitles.length && (
         <Gallery titles={galleriesTitles} currentGalleryFiles={galleryFiles} />
-      )}
-      {teamMembers && teamMembers.length && (
+      )) ||
+        null}
+      {(teamMembers && teamMembers.length && (
         <Contacts
           members={teamMembers}
           businessContactInfo={businessContactInfo}
         />
-      )}
+      )) ||
+        null}
       <ScrollToElement />
       <LightBox />
-      {isProjectDetailedSearchModalWindowOpen && <ProjectDetailedSearchModal />}
+      {(isProjectDetailedSearchModalWindowOpen && (
+        <ProjectDetailedSearchModal />
+      )) ||
+        null}
     </HomeLayout>
   );
 };
