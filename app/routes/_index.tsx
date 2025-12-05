@@ -34,28 +34,90 @@ import memberModel from "~/models/Member";
 import businessInfoModel from "~/models/BusinessInfo";
 import mongoose from "mongoose";
 
-export const meta: MetaFunction = () => {
+// export const meta: MetaFunction = () => {
+//   return [
+//     // MUST-HAVES
+//     { title: "Kuber" },
+//     {
+//       name: "description",
+//       content:
+//         "Discover our modern modular house projects built with advanced technology.",
+//     },
+
+//     // OpenGraph
+//     // { property: "og:title", content: "Projects — Modular Houses" },
+//     // { property: "og:description", content: "Discover our modern modular house projects." },
+//     // { property: "og:image", content: "https://my-domain.com/og/project-cover.jpg" },
+//     // { property: "og:type", content: "website" },
+//     // { property: "og:url", content: "https://my-domain.com/projects" },
+
+//     // // Twitter
+//     // { name: "twitter:card", content: "summary_large_image" },
+//     // { name: "twitter:title", content: "Projects — Modular Houses" },
+//     // { name: "twitter:description", content: "Discover our modern modular house projects." },
+//     // { name: "twitter:image", content: "https://my-domain.com/og/project-cover.jpg" },
+//   ];
+// };
+
+const SITE_URL = "https://kuber.ee"; // Your real domain
+
+export const meta: MetaFunction<typeof loader> = ({ location }) => {
+  const urlLangParam = new URLSearchParams(location.search).get("lang") ?? "en";
+
+  // Your real language keys
+  const supportedLangs = ["en", "rus", "est", "nor"] as const;
+  type Lang = (typeof supportedLangs)[number];
+
+  // Validate param → fallback to English
+  const lang: Lang = supportedLangs.includes(urlLangParam as Lang)
+    ? (urlLangParam as Lang)
+    : "en";
+
+  // SEO titles per language
+  const titles: Record<Lang, string> = {
+    en: "Modular Houses in Estonia | Kuber",
+    rus: "Модульные дома в Эстонии | Kuber",
+    est: "Moodulmajad Eestis | Kuber",
+    nor: "Modulhus i Estland | Kuber",
+  };
+
+  // SEO descriptions per language
+  const descriptions: Record<Lang, string> = {
+    en: "Modern modular houses in Estonia. Discover our modular house projects built with advanced technology.",
+    rus: "Современные модульные дома в Эстонии. Ознакомьтесь с нашими проектами, построенными с применением передовых технологий.",
+    est: "Kaasaegsed moodulmajad Eestis. Tutvuge meie moodulmajade projektidega, mis on ehitatud uusimate tehnoloogiate abil.",
+    nor: "Moderne modulhus i Estland. Utforsk våre modulhusprosjekter bygget med avansert teknologi.",
+  };
+
+  // Map your keys → Google hreflang codes
+  const hreflangMap: Record<Lang, string> = {
+    en: "en",
+    rus: "ru",
+    est: "et",
+    nor: "no",
+  };
+
+  // Build <link rel="alternate"> tags
+  const hreflangLinks = supportedLangs.map((code) => ({
+    tagName: "link",
+    rel: "alternate",
+    hrefLang: hreflangMap[code], // ← converted for Google
+    href: `${SITE_URL}/?lang=${code}`,
+  }));
+
+  // x-default (main version)
+  const xDefaultLink = {
+    tagName: "link",
+    rel: "alternate",
+    hrefLang: "x-default",
+    href: `${SITE_URL}/?lang=en`,
+  };
+
   return [
-    // MUST-HAVES
-    { title: "Kuber" },
-    {
-      name: "description",
-      content:
-        "Discover our modern modular house projects built with advanced technology.",
-    },
-
-    // OpenGraph
-    // { property: "og:title", content: "Projects — Modular Houses" },
-    // { property: "og:description", content: "Discover our modern modular house projects." },
-    // { property: "og:image", content: "https://my-domain.com/og/project-cover.jpg" },
-    // { property: "og:type", content: "website" },
-    // { property: "og:url", content: "https://my-domain.com/projects" },
-
-    // // Twitter
-    // { name: "twitter:card", content: "summary_large_image" },
-    // { name: "twitter:title", content: "Projects — Modular Houses" },
-    // { name: "twitter:description", content: "Discover our modern modular house projects." },
-    // { name: "twitter:image", content: "https://my-domain.com/og/project-cover.jpg" },
+    { title: titles[lang] },
+    { name: "description", content: descriptions[lang] },
+    ...hreflangLinks,
+    xDefaultLink,
   ];
 };
 
