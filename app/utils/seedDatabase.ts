@@ -14,6 +14,12 @@ async function seedInitialData() {
     if (!existingModel) {
       await businessInfoModel.create({
         id: "businessInfoData",
+        addressToDisplayInFrame: {
+          country: "",
+          city: "",
+          street: "",
+          houseNumber: "",
+        },
       });
     }
   } catch (error) {
