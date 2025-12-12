@@ -76,7 +76,7 @@ const ProjectSlider = ({ imagePaths }: { imagePaths: string[] }) => {
           {imagePaths.map((item) => (
             <button
               key={item}
-              className="aspect-square w-full max-h-[6rem] overflow-hidden"
+              className="aspect-square w-full max-h-[25rem] overflow-hidden"
               onClick={() => handleImageClick(item)}
             >
               <img

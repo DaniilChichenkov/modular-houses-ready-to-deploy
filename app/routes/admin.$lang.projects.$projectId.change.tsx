@@ -260,13 +260,13 @@ export const loader: LoaderFunction = async ({
 
     //Get main image
     const mainImageFile = await fs.readdir(projMainDirPath);
-    const mainImageUrl = `/public/projects/${projectToChange.imagesFolder}/main_image/${mainImageFile}`;
+    const mainImageUrl = `/projects/${projectToChange.imagesFolder}/main_image/${mainImageFile}`;
 
     //Get carousel images
     const carouselImages = await fs.readdir(projCarouselDirPath);
     const carouselImagesUrl = carouselImages.map(
       (item) =>
-        `/public/projects/${projectToChange.imagesFolder}/carousel_images/${item}`
+        `/projects/${projectToChange.imagesFolder}/carousel_images/${item}`
     );
 
     return {
