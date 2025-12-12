@@ -141,9 +141,6 @@ export const action: ActionFunction = async ({
 
   //Change entity in DB
   try {
-    console.log(JSON.stringify(jsonPayload.quickDesc));
-    console.log(jsonPayload.fullDesc);
-
     await projectModel.findOneAndUpdate(
       { _id: projectId },
       {
@@ -205,7 +202,8 @@ export const action: ActionFunction = async ({
       )
     );
 
-    return json({ success: true });
+    await new Promise((r) => setTimeout(r, 100));
+    return redirect(`/admin/rus/projects`);
   } catch (error) {
     return json({ success: false, msg: "Error during Project Changing" });
   }
