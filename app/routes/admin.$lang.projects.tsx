@@ -142,6 +142,8 @@ const AdminProjectsRoute = () => {
     toggleModal();
   };
 
+  console.log(loaderData[1].mainImageUrl);
+
   //Handle document scroll
   useEffect(() => {
     if (isModalOpen) {

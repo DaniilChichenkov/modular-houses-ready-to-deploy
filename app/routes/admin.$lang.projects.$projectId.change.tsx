@@ -141,6 +141,9 @@ export const action: ActionFunction = async ({
 
   //Change entity in DB
   try {
+    console.log(JSON.stringify(jsonPayload.quickDesc));
+    console.log(jsonPayload.fullDesc);
+
     await projectModel.findOneAndUpdate(
       { _id: projectId },
       {
@@ -149,8 +152,8 @@ export const action: ActionFunction = async ({
         area: jsonPayload.area,
         numberOfRooms: jsonPayload.numberOfRooms,
         floors: jsonPayload.floors,
-        quickDesc: JSON.stringify(jsonPayload.quickDesc.content),
-        fullDesc: JSON.stringify(jsonPayload.fullDesc.content),
+        quickDesc: JSON.stringify(jsonPayload.quickDesc),
+        fullDesc: JSON.stringify(jsonPayload.fullDesc),
         featuresList: JSON.stringify(jsonPayload.featuresList),
         isDiscount: jsonPayload.isDiscount,
         newPrice: jsonPayload.newPrice,
