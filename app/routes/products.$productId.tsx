@@ -19,6 +19,27 @@ import {
 
 import HomeLayout from "~/layouts/HomeLayout";
 
+const translations = {
+  area: {
+    rus: "Площадь",
+    est: "Pindala",
+    en: "Area",
+    nor: "Areal",
+  },
+  rooms: {
+    rus: "Комнаты",
+    est: "Toad",
+    en: "Rooms",
+    nor: "Rom",
+  },
+  floors: {
+    rus: "Этажи",
+    est: "Korrused",
+    en: "Floors",
+    nor: "Etasjer",
+  },
+};
+
 export const meta: MetaFunction = () => {
   return [
     // MUST-HAVES
@@ -149,7 +170,22 @@ const ProductRoute = () => {
     imagesFolder: string;
     carouselImagesPaths: string[];
     featuresList: string;
+    area: number;
+    numberOfRooms: number;
+    floors: number;
   }>();
+
+  //Get lang
+  const location = useLocation();
+  type Lang = "rus" | "est" | "en" | "nor";
+  const searchLang = new URLSearchParams(location.search).get("lang");
+  const currentLang: Lang =
+    searchLang === "rus" ||
+    searchLang === "est" ||
+    searchLang === "en" ||
+    searchLang === "nor"
+      ? searchLang
+      : "en";
 
   //Parse features list
   const featuresList: {
@@ -169,6 +205,8 @@ const ProductRoute = () => {
     }[];
   }[] = JSON.parse(productData.featuresList);
 
+  console.log(productData.area);
+
   return (
     <>
       <HomeLayout>
@@ -185,6 +223,22 @@ const ProductRoute = () => {
               <div className="mt-10 md:mt-0 flex flex-col items-start justify-start">
                 {/* Breadcrumbs navigation */}
                 <ProjectBreadcrumbs projectTitle={productData.title} />
+
+                {/* Features (Area, floors qty, rooms qty) */}
+                <div className="w-full flex justify-start items-center flex-wrap gap-x-5 mt-5">
+                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700">
+                    {translations.area[currentLang]} - {productData.area}m2
+                  </span>
+
+                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700">
+                    {translations.floors[currentLang]} - {productData.floors}
+                  </span>
+
+                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700">
+                    {translations.rooms[currentLang]} -{" "}
+                    {productData.numberOfRooms}
+                  </span>
+                </div>
 
                 {/* Title */}
                 <h2 className="text-2xl font-semibold text-gray-900 sm:text-3xl text-center mt-10">
