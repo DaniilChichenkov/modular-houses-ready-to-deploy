@@ -38,6 +38,12 @@ const translations = {
     en: "Floors",
     nor: "Etasjer",
   },
+  features: {
+    rus: "Особенности",
+    est: "Omadused",
+    en: "Features",
+    nor: "Egenskaper",
+  },
 };
 
 export const meta: MetaFunction = () => {
@@ -284,7 +290,9 @@ const ProductRoute = () => {
                 <span className="flex items-center">
                   <span className="h-px flex-1 bg-gray-300"></span>
 
-                  <span className="shrink-0 px-4 text-gray-900">Features</span>
+                  <span className="shrink-0 px-4 text-gray-900">
+                    {translations.features[currentLang]}
+                  </span>
 
                   <span className="h-px flex-1 bg-gray-300"></span>
                 </span>
