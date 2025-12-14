@@ -225,7 +225,7 @@ const ProductRoute = () => {
                 <ProjectBreadcrumbs projectTitle={productData.title} />
 
                 {/* Features (Area, floors qty, rooms qty) */}
-                <div className="w-full flex justify-start items-center flex-wrap gap-x-5 mt-5">
+                <div className="w-full flex justify-start items-center flex-wrap gap-x-5 gap-y-5 mt-5">
                   <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700">
                     {translations.area[currentLang]} - {productData.area}m2
                   </span>
