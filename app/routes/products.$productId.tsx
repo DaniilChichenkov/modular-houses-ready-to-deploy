@@ -150,7 +150,7 @@ const ProductFeaturesList = ({
         {listItems.map((item, i) => (
           <li
             key={i}
-            className="flex justify-start md:justify-center lg:justify-start items-center gap-x-2 capitalize"
+            className="flex justify-start md:justify-center lg:justify-start items-center gap-x-2"
           >
             <ChevronRight size={14} />
             {item.content[lang === "en" ? "eng" : lang]}
