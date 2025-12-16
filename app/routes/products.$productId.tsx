@@ -111,7 +111,7 @@ const ProductDescriptionPar = ({ innerContent }: { innerContent: string }) => {
   const lang: string = new URLSearchParams(search).get("lang")!;
 
   return (
-    <p className="mt-4 text-gray-700 text-left">
+    <p className="mt-4 text-gray-700 text-left whitespace-pre-wrap">
       {JSON.parse(innerContent)[lang === "en" ? "eng" : lang]}
     </p>
   );
