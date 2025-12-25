@@ -1,13 +1,13 @@
-const QuickStatsItem = () => {
-  return (
-    <>
-      <article classNameName="flex flex-col items-center gap-4 bg-white rounded-lg py-5">
-        <p classNameName="font-bold text-2xl md:text-3xl text-black">15+</p>
-        <p classNameName="text-xl font-normal text-gray-900">Лет опыта</p>
-      </article>
-    </>
-  );
-};
+// const QuickStatsItem = () => {
+//   return (
+//     <>
+//       <article classNameName="flex flex-col items-center gap-4 bg-white rounded-lg py-5">
+//         <p classNameName="font-bold text-2xl md:text-3xl text-black">15+</p>
+//         <p classNameName="text-xl font-normal text-gray-900">Лет опыта</p>
+//       </article>
+//     </>
+//   );
+// };
 
 const QuickStats = () => {
   return (

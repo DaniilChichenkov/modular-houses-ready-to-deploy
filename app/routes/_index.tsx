@@ -516,7 +516,6 @@ const IndexRoute = () => {
 
     //If there are already any projects in store - do not set them there from loader
     // if (storedProjects !== undefined && !storedProjects.length) {
-    //   console.log("ALREADY");
     //   setProjects(projects);
     // }
 

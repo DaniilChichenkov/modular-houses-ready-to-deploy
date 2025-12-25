@@ -211,7 +211,6 @@ export const action: ActionFunction = async ({
     createdProject.imagesFolder = projectId;
     await createdProject.save();
   } catch (error) {
-    console.log(error);
     return json({ success: false });
   }
 
@@ -316,7 +315,6 @@ const NewProject = () => {
 
     //Check for errors (Implement errors display later)
     if (errors.length) {
-      console.log(errors);
       showModal();
       return;
     }

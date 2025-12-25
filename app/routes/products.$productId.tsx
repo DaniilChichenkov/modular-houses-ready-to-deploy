@@ -211,8 +211,6 @@ const ProductRoute = () => {
     }[];
   }[] = JSON.parse(productData.featuresList);
 
-  console.log(productData.area);
-
   return (
     <>
       <HomeLayout>

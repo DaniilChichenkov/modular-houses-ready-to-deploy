@@ -93,8 +93,6 @@ const TechnologyArticlePlainText = ({
       ? searchLang
       : "en";
 
-  console.log(content);
-
   return (
     <p className="text-gray-500 mt-4 lg:w-8/12 whitespace-pre-wrap">
       {" "}
