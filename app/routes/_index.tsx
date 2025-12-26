@@ -65,8 +65,6 @@ export const meta: MetaFunction<typeof loader> = ({ location }) => {
   const urlLangParam = new URLSearchParams(location.search).get("lang") ?? "en";
   const canonical = `https://kuber.ee${location.pathname}${location.search}`;
 
-  console.log(canonical);
-
   // Your real language keys
   const supportedLangs = ["en", "rus", "est", "nor"] as const;
   type Lang = (typeof supportedLangs)[number];
