@@ -28,9 +28,9 @@ const Header = () => {
     <section className="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2 sm:items-center">
       <div className="p-8 md:p-12 lg:px-16 lg:py-24">
         <div className="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
-          <h2 className="text-2xl xl:text-5xl font-bold text-gray-900 md:text-3xl md:text-left">
+          <h1 className="text-2xl lg:text-3xl xl:text-5xl font-bold text-gray-900 md:text-3xl md:text-left">
             {translations["header"][currentLang]}
-          </h2>
+          </h1>
           {/* 
           <p className="hidden text-gray-500 md:mt-4 md:block md:text-left">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas
