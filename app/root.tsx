@@ -4,10 +4,34 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type {
+  LinksFunction,
+  LoaderFunction,
+  LoaderFunctionArgs,
+} from "@remix-run/node";
+import { json } from "@remix-run/node";
 
 import "./tailwind.css";
+
+export const loader: LoaderFunction = async ({
+  request,
+}: LoaderFunctionArgs) => {
+  const url = new URL(request.url);
+  const lang = url.searchParams.get("lang") ?? "eng";
+
+  const htmlLangMap: Record<string, string> = {
+    eng: "en",
+    rus: "ru",
+    est: "et",
+    nor: "no",
+  };
+
+  return json({
+    htmlLang: htmlLangMap[lang] ?? "en",
+  });
+};
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,15 +48,18 @@ export const links: LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { htmlLang } = useLoaderData<{
+    htmlLang: string;
+  }>();
+
   return (
-    <html lang="en">
+    <html lang={htmlLang ?? "en"}>
       <head>
         <meta charSet="utf-8" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
-        <title>Kuber</title>
         <Meta />
         <Links />
       </head>
