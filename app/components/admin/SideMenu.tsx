@@ -168,7 +168,7 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
 
       {/* Content */}
       <div
-        className={`z-50 w-10/12 md:w-4/12 lg:w-2/12 flex h-dvh flex-col justify-between border-e overflow-scroll border-gray-100 bg-[rgb(255,255,246)] fixed lg:sticky inset-0 transition-transform duration-200 ${
+        className={`z-50 w-10/12 md:w-4/12 lg:w-2/12 flex h-dvh flex-col justify-between border-e overflow-scroll border-gray-100 bg-white fixed lg:sticky inset-0 transition-transform duration-200 ${
           sideMenuState ? "translate-x-0" : "-translate-x-full"
         } lg:-translate-x-0 lg:relative`}
       >

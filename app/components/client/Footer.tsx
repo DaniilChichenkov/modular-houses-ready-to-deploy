@@ -50,7 +50,7 @@ const Footer = () => {
       : "en";
 
   return (
-    <footer className="mt-auto bg-[rgb(255,255,246)]">
+    <footer className="mt-auto">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex justify-center w-full">
           <img className="w-4/12 aspect-square" src={logo} alt="Logo" />

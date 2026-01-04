@@ -82,7 +82,7 @@ const NavigationBar = () => {
 
   return (
     <>
-      <header className="bg-[rgb(255,255,246)] relative z-20">
+      <header className="relative z-20">
         <div
           style={{ height: `${barHeight}rem` }}
           className="mx-auto flex max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8"

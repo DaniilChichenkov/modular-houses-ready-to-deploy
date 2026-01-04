@@ -257,7 +257,42 @@ export const loader: LoaderFunction = async ({
 
         if (techArticleById) {
           techArticle = techArticleById;
+
+          //If article with provided id was not found in db
+        } else {
+          //Try to find any other article which will replace it
+          const anyTechArticle = await technologyModel.find({}).lean();
+          if (!anyTechArticle.length) {
+            throw new Error("noArticleFound");
+          }
+
+          //Get id of first article and set it in url
+          const firstTechArticleId = anyTechArticle[0]._id.toString();
+
+          //Redirect to url where techArticle exists
+          url.searchParams.set("techPage", firstTechArticleId);
+          return redirect(url.toString());
         }
+      } catch (error) {
+        techArticle = null;
+      }
+
+      //If techArticle is none - try to find any article in db
+    } else if (techPage && techPage === "none") {
+      try {
+        await connectToDB();
+
+        const anyTechArticle = await technologyModel.find({}).lean();
+        if (!anyTechArticle.length) {
+          throw new Error("noArticleFound");
+        }
+
+        //Get id of first article and set it in url
+        const firstTechArticleId = anyTechArticle[0]._id.toString();
+
+        //Redirect to url where techArticle exists
+        url.searchParams.set("techPage", firstTechArticleId);
+        return redirect(url.toString());
       } catch (error) {
         techArticle = null;
       }
@@ -303,21 +338,63 @@ export const loader: LoaderFunction = async ({
     let galleryFiles;
     if (galleryPage && galleryPage !== "none") {
       try {
+        //Ensure that gallery with provided id is still exists
         await connectToDB();
 
-        const pathToGallery = path.join(
-          process.cwd(),
-          "public",
-          "gallery",
-          galleryPage
-        );
-        const filesFromGallery = await fs.readdir(pathToGallery, {
-          recursive: true,
-        });
-        const filesForClient = filesFromGallery.map(
-          (item) => `/gallery/${galleryPage}/${item}`
-        );
-        galleryFiles = filesForClient;
+        const galleryByProvidedId = await galleryModel
+          .findOne({ _id: new mongoose.Types.ObjectId(galleryPage) })
+          .lean();
+
+        //If gallery does exists
+        if (galleryByProvidedId) {
+          const pathToGallery = path.join(
+            process.cwd(),
+            "public",
+            "gallery",
+            galleryPage
+          );
+          const filesFromGallery = await fs.readdir(pathToGallery, {
+            recursive: true,
+          });
+          const filesForClient = filesFromGallery.map(
+            (item) => `/gallery/${galleryPage}/${item}`
+          );
+          galleryFiles = filesForClient;
+
+          //Try to find any other gallery to replace the one that does not exists
+        } else {
+          const anyOtherGalleryToReplace = await galleryModel.find({}).lean();
+          if (!anyOtherGalleryToReplace.length) {
+            galleryFiles = null;
+          } else {
+            url.searchParams.set(
+              "galleryPage",
+              anyOtherGalleryToReplace[0]._id.toString()
+            );
+            return redirect(url.toString());
+          }
+        }
+      } catch (error) {
+        galleryFiles = null;
+      }
+
+      //If gallery page is 'none'
+    } else if (galleryPage && galleryPage === "none") {
+      //Try to find any galleryPage
+      try {
+        await connectToDB();
+
+        const anyGallery = await galleryModel.find({}).lean();
+        if (!anyGallery.length) {
+          throw new Error("noArticleFound");
+        }
+
+        //Get id of first article and set it in url
+        const firstGalleryId = anyGallery[0]._id.toString();
+
+        //Redirect to url where techArticle exists
+        url.searchParams.set("galleryPage", firstGalleryId);
+        return redirect(url.toString());
       } catch (error) {
         galleryFiles = null;
       }
