@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { NavigationBar, Footer } from "~/components/client";
+import { NavigationBar, Footer, BetterModal } from "~/components/client";
 
 const HomeLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -7,6 +7,7 @@ const HomeLayout = ({ children }: { children: ReactNode }) => {
       <NavigationBar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <BetterModal />
     </div>
   );
 };

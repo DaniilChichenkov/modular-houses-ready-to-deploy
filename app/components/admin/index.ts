@@ -25,6 +25,7 @@ import ChangeTechnologyContent from "./Technology/ChangeTechnologyContent";
 //Modals
 import DialogueModal from "./DialogueModal";
 import InfoModal from "./InfoModal";
+import BetterModal from "./BetterModal";
 
 export {
   SideMenu,
@@ -44,4 +45,5 @@ export {
   InfoModal,
   ChangeTechnologyHeader,
   ChangeTechnologyContent,
+  BetterModal,
 };

@@ -19,6 +19,9 @@ import Contacts from "./Contacts";
 import Footer from "./Footer";
 import ScrollToElement from "./ScrollToElement";
 import ProjectDetailedSearchModal from "./Projects/ProjectDetailedSearchModal";
+import ProjectModal from "./Projects/ProjectModal";
+import Feedback from "./Feedback";
+import BetterModal from "./BetterModal";
 
 export {
   NavigationBar,
@@ -42,4 +45,7 @@ export {
   ProjectBreadcrumbs,
   ScrollToElement,
   ProjectDetailedSearchModal,
+  ProjectModal,
+  Feedback,
+  BetterModal,
 };

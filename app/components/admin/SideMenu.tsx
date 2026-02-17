@@ -122,6 +122,36 @@ const translations = {
     est: "Logi välja",
     nor: "Logg ut",
   },
+  requests: {
+    eng: "Requests",
+    rus: "Запросы",
+    est: "Päringud",
+    nor: "Forespørsler",
+  },
+  pendingRequests: {
+    eng: "Pending Requests",
+    rus: "Ожидающие запросы",
+    est: "Ootel päringud",
+    nor: "Ventende forespørsler",
+  },
+  completedRequests: {
+    eng: "Completed Requests",
+    rus: "Завершённые запросы",
+    est: "Lõpetatud päringud",
+    nor: "Fullførte forespørsler",
+  },
+  unreadFeedback: {
+    eng: "Unread Feedback",
+    rus: "Непрочитанная обратная связь",
+    est: "Lugemata tagasiside",
+    nor: "Uleste tilbakemeldinger",
+  },
+  readFeedback: {
+    eng: "Read Feedback",
+    rus: "Прочитанная обратная связь",
+    est: "Läbivaadatud tagasiside",
+    nor: "Leste tilbakemeldinger",
+  },
 };
 
 const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
@@ -443,16 +473,6 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
               </details>
             </li>
 
-            {/* Feedback */}
-            {/* <li>
-              <a
-                href="#"
-                className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-              >
-                {translations.feedback[lang!]}
-              </a>
-            </li> */}
-
             {/* Business contact details */}
             <li>
               <NavLink
@@ -467,6 +487,136 @@ const SideMenu = ({ closeSideMenu, sideMenuState }: Props) => {
               >
                 {translations["businessContactDetails"][lang!]}
               </NavLink>
+            </li>
+
+            {/* Requests */}
+            <li>
+              <details
+                open={pathname.includes("requests")}
+                className="group [&_summary::-webkit-details-marker]:hidden"
+              >
+                <summary
+                  className={`${
+                    pathname.includes("requests") && "bg-gray-100 text-gray-700"
+                  } flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700`}
+                >
+                  <span className="text-sm font-medium">
+                    {translations.requests[lang!]}
+                  </span>
+
+                  <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="size-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </summary>
+
+                <ul className="mt-2 space-y-1 px-4">
+                  <li>
+                    <NavLink
+                      onClick={closeSideMenu}
+                      to={`/admin/${lang}/requests`}
+                      end
+                      className={({ isActive }) =>
+                        `block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+                          isActive && "bg-gray-100"
+                        }`
+                      }
+                    >
+                      {translations.pendingRequests[lang!]}
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink
+                      onClick={closeSideMenu}
+                      to={`/admin/${lang}/completed-requests`}
+                      end
+                      className={({ isActive }) =>
+                        `block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+                          isActive && "bg-gray-100"
+                        }`
+                      }
+                    >
+                      {translations.completedRequests[lang!]}
+                    </NavLink>
+                  </li>
+                </ul>
+              </details>
+            </li>
+
+            {/* Feedback */}
+            <li>
+              <details
+                open={pathname.includes("feedback")}
+                className="group [&_summary::-webkit-details-marker]:hidden"
+              >
+                <summary
+                  className={`${
+                    pathname.includes("feedback") && "bg-gray-100 text-gray-700"
+                  } flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700`}
+                >
+                  <span className="text-sm font-medium">
+                    {translations.feedback[lang!]}
+                  </span>
+
+                  <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="size-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </summary>
+
+                <ul className="mt-2 space-y-1 px-4">
+                  <li>
+                    <NavLink
+                      onClick={closeSideMenu}
+                      to={`/admin/${lang}/feedback/unred`}
+                      end
+                      className={({ isActive }) =>
+                        `block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+                          isActive && "bg-gray-100"
+                        }`
+                      }
+                    >
+                      {translations.unreadFeedback[lang!]}
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink
+                      onClick={closeSideMenu}
+                      to={`/admin/${lang}/feedback/red`}
+                      end
+                      className={({ isActive }) =>
+                        `block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+                          isActive && "bg-gray-100"
+                        }`
+                      }
+                    >
+                      {translations.readFeedback[lang!]}
+                    </NavLink>
+                  </li>
+                </ul>
+              </details>
             </li>
 
             {/* Language selection */}

@@ -4,10 +4,10 @@ import houseImg from "/src/house.jpg";
 
 const translations = {
   header: {
-    rus: "Модульные дома для современной жизни",
-    est: "Moodulmajad kaasaegseks eluks",
-    en: "Modular Homes for Modern Living",
-    nor: "Modulære hjem for moderne liv",
+    en: "Turnkey Modular House Construction",
+    rus: "Строительство модульных домов под ключ",
+    est: "Võtmed kätte moodulmajade ehitus",
+    nor: "Nøkkelferdig bygging av modulhus",
   },
 };
 

@@ -13,13 +13,13 @@ import path from "path";
 import {
   Header,
   Projects,
-  QuickStats,
   Technology,
   Gallery,
   Contacts,
   ScrollToElement,
   LightBox,
   ProjectDetailedSearchModal,
+  Feedback,
 } from "~/components/client";
 
 import useClientProjectsStore from "~/stores/ClientProjectsStore";
@@ -34,32 +34,7 @@ import memberModel from "~/models/Member";
 import businessInfoModel from "~/models/BusinessInfo";
 import mongoose from "mongoose";
 
-// export const meta: MetaFunction = () => {
-//   return [
-//     // MUST-HAVES
-//     { title: "Kuber" },
-//     {
-//       name: "description",
-//       content:
-//         "Discover our modern modular house projects built with advanced technology.",
-//     },
-
-//     // OpenGraph
-//     // { property: "og:title", content: "Projects — Modular Houses" },
-//     // { property: "og:description", content: "Discover our modern modular house projects." },
-//     // { property: "og:image", content: "https://my-domain.com/og/project-cover.jpg" },
-//     // { property: "og:type", content: "website" },
-//     // { property: "og:url", content: "https://my-domain.com/projects" },
-
-//     // // Twitter
-//     // { name: "twitter:card", content: "summary_large_image" },
-//     // { name: "twitter:title", content: "Projects — Modular Houses" },
-//     // { name: "twitter:description", content: "Discover our modern modular house projects." },
-//     // { name: "twitter:image", content: "https://my-domain.com/og/project-cover.jpg" },
-//   ];
-// };
-
-const SITE_URL = "https://kuber.ee"; // Your real domain
+const SITE_URL = "https://kuber.ee";
 
 export const meta: MetaFunction<typeof loader> = ({ location }) => {
   const urlLangParam = new URLSearchParams(location.search).get("lang") ?? "en";
@@ -229,7 +204,7 @@ export const loader: LoaderFunction = async ({
     //Build /api/projects url path
     const apiProjectsUrl = new URL("/api/projects", url);
     const projectsRequestFunction = fetch(
-      `${apiProjectsUrl}?${url.searchParams.toString()}`
+      `${apiProjectsUrl}?${url.searchParams.toString()}`,
     );
 
     //Add function to api requests array
@@ -251,7 +226,7 @@ export const loader: LoaderFunction = async ({
             {
               _id: new mongoose.Types.ObjectId(techPage),
             },
-            { createdAt: 0 }
+            { createdAt: 0 },
           )
           .lean();
 
@@ -351,13 +326,13 @@ export const loader: LoaderFunction = async ({
             process.cwd(),
             "public",
             "gallery",
-            galleryPage
+            galleryPage,
           );
           const filesFromGallery = await fs.readdir(pathToGallery, {
             recursive: true,
           });
           const filesForClient = filesFromGallery.map(
-            (item) => `/gallery/${galleryPage}/${item}`
+            (item) => `/gallery/${galleryPage}/${item}`,
           );
           galleryFiles = filesForClient;
 
@@ -369,7 +344,7 @@ export const loader: LoaderFunction = async ({
           } else {
             url.searchParams.set(
               "galleryPage",
-              anyOtherGalleryToReplace[0]._id.toString()
+              anyOtherGalleryToReplace[0]._id.toString(),
             );
             return redirect(url.toString());
           }
@@ -512,10 +487,10 @@ const IndexRoute = () => {
 
   //Projects Store
   const setFetchNextPageProjects = useClientProjectsStore(
-    (state) => state.setFetchNextPageProjects
+    (state) => state.setFetchNextPageProjects,
   );
   const setFetcherState = useClientProjectsStore(
-    (state) => state.setFetcherState
+    (state) => state.setFetcherState,
   );
   const setHasMore = useClientProjectsStore((state) => state.setHasMore);
   const storedProjects = useClientProjectsStore((state) => state.projects);
@@ -523,7 +498,7 @@ const IndexRoute = () => {
 
   //Tech active link store (Update UI so user will see which Technology Article is on the screen now)
   const setActiveLink = useTechnologyActiveLinkStore(
-    (state) => state.setActiveLink
+    (state) => state.setActiveLink,
   );
 
   //Project detailed search modal window (For mobile for now ???)
@@ -563,7 +538,7 @@ const IndexRoute = () => {
       const newUrl = new URL(window.location.href);
       newUrl.searchParams.set(
         "projectsPage",
-        String(+newUrl.searchParams.get("projectsPage")! + 1)
+        String(+newUrl.searchParams.get("projectsPage")! + 1),
       );
 
       //Possible source of bugs (Because URL is being updated only after server response)
@@ -624,6 +599,7 @@ const IndexRoute = () => {
         <Gallery titles={galleriesTitles} currentGalleryFiles={galleryFiles} />
       )) ||
         null}
+      <Feedback />
       {(teamMembers && teamMembers.length && (
         <Contacts
           members={teamMembers}

@@ -28,7 +28,7 @@ export const loader: LoaderFunction = async ({
     nor: "no",
   };
 
-  return json({
+  return Response.json({
     htmlLang: htmlLangMap[lang] ?? "en",
   });
 };

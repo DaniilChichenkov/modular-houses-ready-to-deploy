@@ -85,9 +85,11 @@ const ProjectsListItem = ({
 
       <div className="relative border border-gray-100 bg-white p-6">
         <p className="text-gray-700">
-          {price}${/* If item is on discount */}
+          {price}&euro;{/* If item is on discount */}
           {isDiscount && (
-            <span className="text-gray-400 line-through ml-1">{newPrice}$</span>
+            <span className="text-gray-400 line-through ml-1">
+              {newPrice}&euro;
+            </span>
           )}
         </p>
 

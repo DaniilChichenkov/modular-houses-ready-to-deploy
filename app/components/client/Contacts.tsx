@@ -209,7 +209,7 @@ const ContactsSectionTeamMember = ({
               ></span>
             ) : (
               ""
-            )
+            ),
           )}
       </div>
       <ContactsSectionPlainText
@@ -264,7 +264,7 @@ const Contacts = ({
 
   const fullAddress = Object.values(addressToDisplayInFrame).join(", ");
   const encodedAddress = `https://maps.google.com/maps?q=${encodeURIComponent(
-    fullAddress
+    fullAddress,
   )}&t=&z=17&ie=UTF8&iwloc=&output=embed`;
 
   //Get lang
@@ -334,22 +334,6 @@ const Contacts = ({
             />
             <ContactsSectionMapFrame src={encodedAddress} />
           </ContactsSection>
-
-          {/* Feedback */}
-          {/* <ContactsSection>
-            <ContactsSectionHeader innerText="Обратная связь" />
-            <ContactsSectionForm>
-              <ContactsSectionFormRegularInput
-                inputType="text"
-                inputTitle="name"
-              />
-              <ContactsSectionFormRegularInput
-                inputType="email"
-                inputTitle="email"
-              />
-              <ContactsSectionFormTextArea inputTitle="Ваше сообщение нам" />
-            </ContactsSectionForm>
-          </ContactsSection> */}
         </div>
 
         <ContactsSection>
