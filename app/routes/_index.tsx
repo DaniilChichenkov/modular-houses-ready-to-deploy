@@ -586,7 +586,8 @@ const IndexRoute = () => {
   return (
     <HomeLayout>
       <Header />
-      {projects && projects.length && <Projects projects={projects} />}
+      {(projects && projects.length && <Projects projects={projects} />) ||
+        null}
       {/* <QuickStats /> */}
       {(techArticlesTitles && techArticlesTitles && (
         <Technology
