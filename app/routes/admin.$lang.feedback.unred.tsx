@@ -332,7 +332,7 @@ const AdminFeedbackItem = ({
               {translations.message[lang!]}
             </dt>
 
-            <dd className="text-gray-700 sm:col-span-2 whitespace-pre">
+            <dd className="text-gray-700 sm:col-span-2 whitespace-pre text-wrap">
               {message}
             </dd>
           </div>
